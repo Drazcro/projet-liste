@@ -7,7 +7,8 @@ class ListeRepository extends Repository
 
     public function get(...$p)
     {
-        $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = '.$p[0]. ' OR visibility = 1 OR idListe IN (SELECT liste_idliste FROM partage WHERE utilisateur_idUser = '.$p[0].')');
+        $id = $p[0];
+        $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = '.$id. ' OR visibility = 1 OR idListe IN (SELECT liste_idliste FROM partage WHERE utilisateur_idUser = '.$id.')');
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }

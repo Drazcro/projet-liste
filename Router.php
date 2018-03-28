@@ -14,7 +14,7 @@ class Router
                 throw new \Exceptions\HttpException();
             }
             $controller = new $name($_SERVER['REQUEST_METHOD']);
-            $controller->action();
+            $controller->action('La table '.$_REQUEST['table'].' n\'existe pas');
         }
         catch (\Exceptions\HttpException $e) {
             $e->setResponse($_REQUEST['table']);
