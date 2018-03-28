@@ -10,6 +10,8 @@ class ListeController extends HttpController
     {
         try {
             $r = new \Model\ListeRepository();
+            if(!isset($this->data['function']))
+                throw new HttpException('Aucune fonction n\'a etee specifiee.');
             if($this->data['function'] == 'getAll') {
 
             }
