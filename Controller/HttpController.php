@@ -6,7 +6,7 @@ use Utils\HttpResponse;
 
 require_once (DIR."/Autoloader.php");
 
-class HttpController implements ControllerInterface
+abstract class HttpController
 {
     protected $method;
     protected $data;
@@ -16,10 +16,7 @@ class HttpController implements ControllerInterface
         $this->data = $_REQUEST;
     }
 
-    public function action()
-    {
-        // TODO: Implement action() method.
-    }
+    abstract function action();
 
     public function httpResponse($message)
     {
