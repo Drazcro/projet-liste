@@ -3,7 +3,6 @@
 namespace Controller;
 
 use Exceptions\HttpException;
-use Model\ListeRepository;
 
 /**
  * Class ListeController
@@ -50,8 +49,8 @@ class ListeController extends HttpController
 
             }
             elseif ($this->data['function'] == 'getList') {
-                if(isset($this->data['id']))
-                    $d = $this->repository->getList($this->data['id']);
+                if(isset($this->data['idListe']))
+                    $d = $this->repository->getList($this->data['idListe']);
                 else
                     throw new HttpException('L\'id n\'est pas indique.');
             }
