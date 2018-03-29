@@ -10,6 +10,7 @@ class ApiTest extends TestCase
 {
     private $idUser;
     private $idListe;
+    private $idElement;
     private $pdo;
 
     public function __construct()
@@ -34,6 +35,15 @@ class ApiTest extends TestCase
         $stmt->execute();
         $d = $stmt->fetch(\PDO::FETCH_ASSOC);
         $this->idListe = $d['idliste'];
+    }
+
+    private function setIdElement() {
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM element WHERE idListe = '.$this->idListe);
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $this->idElement = $d['idelements'];
     }
 
     public function testCreateUtilisateur() {
@@ -65,11 +75,43 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res['status']);
     }
 
+    public function testCreateElement() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $dateCrea = new \DateTime();
+        $dateModif = new \DateTime();
+        $ch = curl_init();
+        $post = ['table'=>'element', 'function'=>'createElement', 'date_creation'=>date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif'=>date_format($dateModif, 'Y-m-d H:i:s'), 'titre'=>'un element', 'description'=>'un super element', 'statut'=>1, 'idListe'=>$this->idListe];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
     public function testGetListe() {
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
         $url = "localhost/projet-liste/main.php?table=liste&function=getListe&idListe=$this->idListe";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testGetElement() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $ch = curl_init();
+        $url = "localhost/projet-liste/main.php?table=element&function=getElement&idElement=$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -86,6 +128,40 @@ class ApiTest extends TestCase
         $url = "localhost/projet-liste/main.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testUpdateElement() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $ch = curl_init();
+        $dateCrea = new \DateTime();
+        $dateModif = new \DateTime();
+        $post = ['table'=>'element', 'function'=>'updateElement', 'date_creation'=>date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif'=>date_format($dateModif, 'Y-m-d H:i:s'), 'titre'=>"nouveau titre", 'description'=>'une nouvelle description', 'statut'=>1, 'idListe'=>$this->idListe, 'idElement'=> $this->idElement];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testDeleteElement() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $ch = curl_init();
+        $post = ['table'=>'element', 'function'=>'deleteElement', 'idElement'=>$this->idElement];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
         $res = json_decode(curl_exec($ch), true);

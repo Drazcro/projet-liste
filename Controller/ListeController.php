@@ -34,7 +34,7 @@ class ListeController extends HttpController
                 $d=$this->delete();
             }
             elseif ($this->method == 'PUT') {
-                $d=$this->update();
+                $d=$this->put();
             }
             $this->httpResponse($d);
         }
@@ -86,7 +86,7 @@ class ListeController extends HttpController
                 $d = $this->repository->deleteListe($this->data['idListe']);
             }
             else
-                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
+                throw new HttpException(400, 'L\'id n\'est pas definie.');
         }
         else {
             throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
@@ -99,7 +99,7 @@ class ListeController extends HttpController
         }
     }
 
-    private function update()
+    private function put()
     {
         if($this->data['function'] == 'updateListe') {
             if(isset($this->data['idUser']) && isset($this->data['title']) && isset($this->data['description']) && isset($this->data['visibility']) && isset($this->data['idListe'])) {
