@@ -27,33 +27,48 @@ class ListeRepository extends Repository
     }
 
     public function createList($id, $description, $visibility, $title) {
-        $stmt = $this->pdo->prepare('INSERT INTO liste (title, description, visibility, idUser) VALUES (:title, :description, :visibility, :idUser)');
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':visibility', $visibility);
-        $stmt->bindParam(':idUser', $id);
-        $stmt->execute();
-        //curl -X POST --data "table=liste&function=createListe&description=penis&title=superpenis&idUser=1&visibility=1" localhost/projet-liste/main.php
-        return $stmt->fetch();
+        try {
+            $stmt = $this->pdo->prepare('INSERT INTO liste (title, description, visibility, idUser) VALUES (:title, :description, :visibility, :idUser)');
+            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':visibility', $visibility);
+            $stmt->bindParam(':idUser', $id);
+            $stmt->execute();
+            //curl -X POST --data "table=liste&function=createListe&description=penis&title=superpenis&idUser=1&visibility=1" localhost/projet-liste/main.php
+            return true;
+        }
+        catch(\Exception $e) {
+            return false;
+        }
     }
 
     public function deleteList($id) {
-        $stmt = $this->pdo->prepare('DELETE FROM liste WHERE idListe=+:id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        //curl -X DELETE --data "table=liste&function=deleteListe&idListe=1" localhost/projet-liste/main.php
-        return $stmt->fetch();
+        try {
+            $stmt = $this->pdo->prepare('DELETE FROM liste WHERE idListe=:id');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            //curl -X DELETE --data "table=liste&function=deleteListe&idListe=1" localhost/projet-liste/main.php
+            return true;
+        }
+        catch(\Exception $e) {
+            return false;
+        }
     }
 
     public function updateListe($idUser, $title, $description, $visibility, $idListe) {
-        $stmt = $this->pdo->prepare('UPDATE liste SET title=:title, description=:description, visibility=:visibility, idUser=:idUser WHERE idListe = :idListe');
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':visibility', $visibility);
-        $stmt->bindParam(':idUser', $idUser);
-        $stmt->bindParam(':idListe', $idListe);
-        $stmt->execute();
-        //curl -X PUT --data "table=liste&function=updateListe&description=penis&title=superpenis&idUser=1&visibility=1&idListe=1" localhost/projet-liste/main.php
-        return $stmt->fetch();
+        try {
+            $stmt = $this->pdo->prepare('UPDATE liste SET title=:title, description=:description, visibility=:visibility, idUser=:idUser WHERE idListe = :idListe');
+            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':visibility', $visibility);
+            $stmt->bindParam(':idUser', $idUser);
+            $stmt->bindParam(':idListe', $idListe);
+            $stmt->execute();
+            //curl -X PUT --data "table=liste&function=updateListe&description=penis&title=superpenis&idUser=1&visibility=1&idListe=1" localhost/projet-liste/main.php
+            return true;
+            }
+        catch(\Exception $e) {
+        return false;
+}
     }
 }

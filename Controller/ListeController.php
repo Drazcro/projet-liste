@@ -23,7 +23,7 @@ class ListeController extends HttpController
     {
         try {
             if(!isset($this->data['function']))
-                throw new HttpException('Aucune fonction n\'a etee specifiee.');
+                throw new HttpException(400, 'Aucune fonction n\'a etee specifiee.');
             if($this->method == 'GET') {
                 $d=$this->get();
             }
@@ -52,10 +52,10 @@ class ListeController extends HttpController
                 if(isset($this->data['idListe']))
                     $d = $this->repository->getList($this->data['idListe']);
                 else
-                    throw new HttpException('L\'id n\'est pas indique.');
+                    throw new HttpException(400,'L\'id n\'est pas bien défini ou n\'est pas fourni.');
             }
             else
-                throw new HttpException('La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
+                throw new HttpException(400,'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
         return $d;
     }
 
@@ -66,13 +66,13 @@ class ListeController extends HttpController
                     $d = $this->repository->createList($this->data['idUser'], $this->data['description'], $this->data['visibility'], $this->data['title']);
                 }
                 else
-                    throw new HttpException('Le title ou description ou visibility ou idUser n\'est pas definie.');
+                    throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien défini ou n\'est pas fourni.');
             }
             else {
-                throw new HttpException('La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
+                throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
             }
         if(!$d) {
-            throw new HttpException('L\'ajout a echoue.');
+            throw new HttpException(500, 'L\'ajout a echoue.');
         }
         else {
             return "L\'ajout a reussie.";
@@ -111,13 +111,13 @@ class ListeController extends HttpController
                 $d = $this->repository->updateListe($this->data['idUser'], $this->data['title'], $this->data['description'], $this->data['visibility'], $this->data['idListe']);
             }
             else
-                throw new HttpException('Le title ou description ou visibility ou idUser ou idListe n\'est pas definie.');
+                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien défini ou n\'est pas fourni.');
         }
         else {
-            throw new HttpException('La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
+            throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
         }
         if(!$d) {
-            throw new HttpException('La mise a jour a echoue.');
+            throw new HttpException(500, 'La mise a jour a echoue.');
         }
         else {
             return "La mise a jour reussie.";
