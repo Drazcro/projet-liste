@@ -20,13 +20,12 @@ class Router
                 parse_str(file_get_contents('php://input'), $_REQUEST);
             }
             if(!isset($_REQUEST['table']))
-                throw new \Exceptions\HttpException('Je dois faire quoi ?');
+                throw new \Exceptions\HttpException(404, 'Je dois faire quoi ?');
             $name = 'Controller\\'.$_REQUEST['table'].'Controller';
             $nameToTest = str_replace('\\', '/', $name).'.php';
             if(!file_exists($nameToTest)) {
                 throw new \Exceptions\HttpException(400, 'La table '.$_REQUEST['table'].' n\'existe pas.');
             }
-            //var_dump($_REQUEST);
             $controller = new $name($_SERVER['REQUEST_METHOD']);
             $controller->action();
         }

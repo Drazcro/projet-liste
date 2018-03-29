@@ -18,7 +18,7 @@ class ListeRepository extends Repository
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getList($id)
+    public function getListe($id)
     {
         $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = :id');
         $stmt->bindParam(':id', $id);
@@ -26,7 +26,7 @@ class ListeRepository extends Repository
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function createList($id, $description, $visibility, $title) {
+    public function createListe($id, $description, $visibility, $title) {
         try {
             $stmt = $this->pdo->prepare('INSERT INTO liste (title, description, visibility, idUser) VALUES (:title, :description, :visibility, :idUser)');
             $stmt->bindParam(':title', $title);
@@ -42,7 +42,7 @@ class ListeRepository extends Repository
         }
     }
 
-    public function deleteList($id) {
+    public function deleteListe($id) {
         try {
             $stmt = $this->pdo->prepare('DELETE FROM liste WHERE idListe=:id');
             $stmt->bindParam(':id', $id);

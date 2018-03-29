@@ -39,8 +39,8 @@ class UtilisateurController extends HttpController
     private function get()
     {
         if ($this->data['function'] == 'getUtilisateur') {
-            if(isset($this->data['idUtilisateur']))
-                $d = $this->repository->getUtilisateur($this->data['idUtilisateur']);
+            if(isset($this->data['idUser']))
+                $d = $this->repository->getUtilisateur($this->data['idUser']);
             else
                 throw new HttpException(400, 'L\'id n\'est pas indique.');
         }
@@ -56,7 +56,7 @@ class UtilisateurController extends HttpController
                 $d = $this->repository->createUtilisateur($this->data['pseudo'], $this->data['password'], $this->data['permission'], $this->data['role']);
             }
             else
-                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien défini ou n\'est pas fourni.');
+                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         }
         else {
             throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
@@ -101,7 +101,7 @@ class UtilisateurController extends HttpController
                 $d = $this->repository->updateUtilisateur($this->data['pseudo'], $this->data['password'], $this->data['permission'], $this->data['role'], $this->data['idUser']);
             }
             else
-                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien défini ou n\'est pas fourni.');
+                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         }
         else {
             throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');

@@ -48,9 +48,9 @@ class ListeController extends HttpController
             if($this->data['function'] == 'getAll') {
 
             }
-            elseif ($this->data['function'] == 'getList') {
+            elseif ($this->data['function'] == 'getListe') {
                 if(isset($this->data['idListe']))
-                    $d = $this->repository->getList($this->data['idListe']);
+                    $d = $this->repository->getListe($this->data['idListe']);
                 else
                     throw new HttpException(400,'L\'id n\'est pas bien défini ou n\'est pas fourni.');
             }
@@ -63,10 +63,10 @@ class ListeController extends HttpController
     {
             if($this->data['function'] == 'createListe') {
                 if(isset($this->data['idUser']) && isset($this->data['description']) && isset($this->data['visibility']) && isset($this->data['title'])) {
-                    $d = $this->repository->createList($this->data['idUser'], $this->data['description'], $this->data['visibility'], $this->data['title']);
+                    $d = $this->repository->createListe($this->data['idUser'], $this->data['description'], $this->data['visibility'], $this->data['title']);
                 }
                 else
-                    throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien défini ou n\'est pas fourni.');
+                    throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
             }
             else {
                 throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
@@ -79,25 +79,20 @@ class ListeController extends HttpController
         }
     }
 
-    private function put()
-    {
-        // TODO: Implement put() method.
-    }
-
     private function delete()
     {
         if($this->data['function'] == 'deleteListe') {
             if(isset($this->data['idListe'])) {
-                $d = $this->repository->deleteList($this->data['idListe']);
+                $d = $this->repository->deleteListe($this->data['idListe']);
             }
             else
-                throw new HttpException('Le title ou description ou visibility ou idUser n\'est pas definie.');
+                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         }
         else {
-            throw new HttpException('La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
+            throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
         }
         if(!$d) {
-            throw new HttpException('La suppression a echoue.');
+            throw new HttpException(500, 'La suppression a echoue.');
         }
         else {
             return "La suppression a reussie.";
@@ -111,7 +106,7 @@ class ListeController extends HttpController
                 $d = $this->repository->updateListe($this->data['idUser'], $this->data['title'], $this->data['description'], $this->data['visibility'], $this->data['idListe']);
             }
             else
-                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien défini ou n\'est pas fourni.');
+                throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         }
         else {
             throw new HttpException(400, 'La fonction '.$this->data['function'].' pour la table '.$this->data['table'].' n\'existe pas ou n\'est pas indiquee.');
