@@ -11,6 +11,7 @@ class ApiTest extends TestCase
     private $idUser;
     private $idListe;
     private $idElement;
+    private $idEtiquette;
     private $pdo;
 
     public function __construct()
@@ -44,6 +45,15 @@ class ApiTest extends TestCase
         $stmt->execute();
         $d = $stmt->fetch(\PDO::FETCH_ASSOC);
         $this->idElement = $d['idelements'];
+    }
+
+    private function setIdEtiquette() {
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM etiquette WHERE idUser = '.$this->idUser);
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $this->idEtiquette = $d['idetiquette'];
     }
 
     public function testCreateUtilisateur() {
@@ -93,11 +103,39 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res['status']);
     }
 
+    public function testCreateEtiquette() {
+        $this->setIdUser();
+        $ch = curl_init();
+        $post = ['table'=>'etiquette', 'function'=>'createEtiquette', 'tag'=>'mon tag', 'idUser'=>$this->idUser];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
     public function testGetListe() {
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
         $url = "localhost/projet-liste/main.php?table=liste&function=getListe&idListe=$this->idListe";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testGetEtiquette() {
+        $this->setIdUser();
+        $this->setIdEtiquette();
+        $ch = curl_init();
+        $url = "localhost/projet-liste/main.php?table=etiquette&function=getEtiquette&idEtiquette=$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -143,6 +181,21 @@ class ApiTest extends TestCase
         $dateCrea = new \DateTime();
         $dateModif = new \DateTime();
         $post = ['table'=>'element', 'function'=>'updateElement', 'date_creation'=>date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif'=>date_format($dateModif, 'Y-m-d H:i:s'), 'titre'=>"nouveau titre", 'description'=>'une nouvelle description', 'statut'=>1, 'idListe'=>$this->idListe, 'idElement'=> $this->idElement];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testUpdateEtiquette() {
+        $this->setIdUser();
+        $this->setIdEtiquette();
+        $ch = curl_init();
+        $post = ['table'=>'etiquette', 'function'=>'updateEtiquette', 'idUser'=>$this->idUser, 'tag'=> 'new tag', 'idEtiquette'=> $this->idEtiquette];
         $url = "localhost/projet-liste/main.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -204,6 +257,21 @@ class ApiTest extends TestCase
         $url = "localhost/projet-liste/main.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testDeleteEtiquette() {
+        $this->setIdUser();
+        $this->setIdEtiquette();
+        $ch = curl_init();
+        $post = ['table'=>'etiquette', 'function'=>'deleteEtiquette', 'idEtiquette'=>$this->idEtiquette];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
         $res = json_decode(curl_exec($ch), true);
