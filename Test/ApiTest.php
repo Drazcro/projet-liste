@@ -133,7 +133,25 @@ class ApiTest extends TestCase
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
         $res = json_decode(curl_exec($ch), true);
-        //var_dump(curl_exec($ch));
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testCreateIdentifie() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdEtiquette();
+        $this->setIdElement();
+        $ch = curl_init();
+        $post = ['table'=>'identifie', 'function'=>'createIdentifie', 'element_idElements'=>$this->idElement, 'etiquette_idEtiquette'=>$this->idEtiquette];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $res = json_decode(curl_exec($ch), true);
+        var_dump(curl_exec($ch));
         curl_close($ch);
         $this->assertEquals(true, $res['status']);
     }
@@ -219,6 +237,21 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res['status']);
     }
 
+    public function testGetIdentifie() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $this->setIdEtiquette();
+        $ch = curl_init();
+        $url = "localhost/projet-liste/main.php?table=identifie&function=getIdentifie&element_idElements=$this->idElement&etiquette_idEtiquette=$this->idEtiquette";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
     public function testUpdateListe() {
         $this->setIdUser();
         $this->setIdListe();
@@ -267,11 +300,13 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res['status']);
     }
 
-    public function testUpdatePartage() {
+    public function testUpdateIdentifie() {
         $this->setIdUser();
         $this->setIdListe();
+        $this->setIdElement();
+        $this->setIdEtiquette();
         $ch = curl_init();
-        $post = ['table'=>'partage', 'function'=>'updatePartage', 'utilisateur_idUser'=>$this->idUser, 'liste_idliste'=> $this->idListe, 'autorisation'=> 0];
+        $post = ['table'=>'identifie', 'function'=>'updateIdentifie', 'element_idElements'=>$this->idElement, 'etiquette_idEtiquette'=>$this->idEtiquette];
         $url = "localhost/projet-liste/main.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -282,15 +317,14 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res['status']);
     }
 
-    public function testDeleteElement() {
+    public function testUpdatePartage() {
         $this->setIdUser();
         $this->setIdListe();
-        $this->setIdElement();
         $ch = curl_init();
-        $post = ['table'=>'element', 'function'=>'deleteElement', 'idElement'=>$this->idElement];
+        $post = ['table'=>'partage', 'function'=>'updatePartage', 'utilisateur_idUser'=>$this->idUser, 'liste_idliste'=> $this->idListe, 'autorisation'=> 0];
         $url = "localhost/projet-liste/main.php";
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
         $res = json_decode(curl_exec($ch), true);
@@ -337,6 +371,23 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res['status']);
     }
 
+    public function testDeleteIdentifie() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $this->setIdEtiquette();
+        $ch = curl_init();
+        $post = ['table'=>'identifie', 'function'=>'deleteIdentifie', 'element_idElements'=>$this->idElement, 'etiquette_idEtiquette'=>$this->idEtiquette];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
     public function testDeletePartage() {
         $this->setIdUser();
         $this->setIdListe();
@@ -358,6 +409,22 @@ class ApiTest extends TestCase
         $this->setIdEtiquette();
         $ch = curl_init();
         $post = ['table'=>'etiquette', 'function'=>'deleteEtiquette', 'idEtiquette'=>$this->idEtiquette];
+        $url = "localhost/projet-liste/main.php";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
+    public function testDeleteElement() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $ch = curl_init();
+        $post = ['table'=>'element', 'function'=>'deleteElement', 'idElement'=>$this->idElement];
         $url = "localhost/projet-liste/main.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
