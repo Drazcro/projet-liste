@@ -10,13 +10,12 @@ abstract class HttpController
 {
     protected $method;
     protected $data;
+    //protected $fields;
 
     public function __construct () {
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->data = $_REQUEST;
     }
-
-    abstract function action();
 
     public function httpResponse($message)
     {
@@ -24,4 +23,12 @@ abstract class HttpController
         $r = new HttpResponse();
         $r->json_response($message);
     }
+
+    /*protected function testIsset() {
+        foreach ($this->fields as $f) {
+            if(!isset($data[$f]))
+                return false;
+        }
+        return true;
+    }*/
 }
