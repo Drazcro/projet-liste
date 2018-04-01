@@ -6,11 +6,18 @@ class PartageRepository extends Repository
 {
     public function getPartage($utilisateur_idUser, $liste_idListe)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM partage WHERE utilisateur_idUser = :utilisateur_idUser AND liste_idListe = :liste_idListe');
-        $stmt->bindParam(':utilisateur_idUser', $utilisateur_idUser);
-        $stmt->bindParam(':liste_idListe', $liste_idListe);
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM partage WHERE utilisateur_idUser = :utilisateur_idUser AND liste_idListe = :liste_idListe');
+            $stmt->bindParam(':utilisateur_idUser', $utilisateur_idUser);
+            $stmt->bindParam(':liste_idListe', $liste_idListe);
+            $stmt->execute();
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
+        }
     }
 
     public function createPartage($utilisateur_idUser, $liste_idliste, $autorisation) {

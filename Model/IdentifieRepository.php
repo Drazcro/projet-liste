@@ -6,11 +6,18 @@ class IdentifieRepository extends Repository
 {
     public function getIdentifie($element_idElements, $etiquette_idEtiquette)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM identifie WHERE element_idelements = :element_idElements AND etiquette_idetiquette= :etiquette_idEtiquette');
-        $stmt->bindParam(':element_idElements', $element_idElements);
-        $stmt->bindParam(':etiquette_idEtiquette', $etiquette_idEtiquette);
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM identifie WHERE element_idelements = :element_idElements AND etiquette_idetiquette = :etiquette_idEtiquette');
+            $stmt->bindParam(':element_idElements', $element_idElements);
+            $stmt->bindParam(':etiquette_idEtiquette', $etiquette_idEtiquette);
+            $stmt->execute();
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
+        }
     }
 
     public function createIdentifie($element_idElements, $etiquette_idEtiquette) {

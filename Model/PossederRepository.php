@@ -4,7 +4,7 @@ namespace Model;
 
 class PossederRepository extends Repository
 {
-    public function getEtiquette($idListe1, $idListe2)
+    public function getPosseder($idListe1, $idListe2)
     {
         $stmt = $this->pdo->prepare('SELECT * FROM posseder WHERE liste_idliste = :id1 AND liste_idliste1 = :id2');
         $stmt->bindParam(':id1', $idListe1);

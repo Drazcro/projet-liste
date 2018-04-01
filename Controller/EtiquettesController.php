@@ -32,7 +32,7 @@ class EtiquettesController extends HttpController
      */
     private function get()
     {
-        isset($this->getData[1])?$this->getData[1]:null;
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         // url : GET /etiquettes/{id}
         if(sizeof($this->getData) == 2 && isset($id) && !empty($id))
             $d = $this->repository->getEtiquette($id);

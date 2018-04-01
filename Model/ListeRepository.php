@@ -12,7 +12,7 @@ class ListeRepository extends Repository
     public function getListe($id)
     {
         try {
-            $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = :id');
+            $stmt = $this->pdo->prepare('SELECT * FROM liste WHERE idliste = :id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             return $stmt->fetch(\PDO::FETCH_ASSOC);

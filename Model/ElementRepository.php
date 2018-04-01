@@ -6,10 +6,17 @@ class ElementRepository extends Repository
 {
     public function getElement($id)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM element WHERE idelements = :id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM element WHERE idelements = :id');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
+        }
     }
 
     public function createElement($date_creation, $date_modif, $titre, $description, $statut, $idListe) {
