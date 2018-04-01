@@ -165,6 +165,22 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res->status);
     }
 
+    public function testCreatePosseder() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $ch = curl_init();
+        $post = ['idListe1'=>$this->idListe, 'idListe2'=>$this->idListe];
+        $url = "localhost/projet-liste/main.php/posseders";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $res = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        $this->assertEquals(true, $res['status']);
+    }
+
     //Tests récupération d'une entité
     public function testGetUtilisateur() {
         $this->setIdUser();
@@ -243,6 +259,20 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $url = "localhost/projet-liste/main.php/partages/$this->idUser/$this->idListe";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
+    public function testGetPosseder() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $ch = curl_init();
+        $url = "localhost/projet-liste/main.php/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -353,7 +383,37 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res->status);
     }
 
+    public function testUpdatePosseder() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $ch = curl_init();
+        $post = ['newIdListe1'=>$this->idUser, 'newIdListe2'=> $this->idListe];
+        $url = "localhost/projet-liste/main.php/posseders/$this->idListe/$this->idListe";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
     //Tests suppression entité
+    public function testDeletePosseder() {
+        $this->setIdUser();
+        $this->setIdListe();
+        $ch = curl_init();
+        $url = "localhost/projet-liste/main.php/posseders/$this->idListe/$this->idListe";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
     public function testDeletePartage() {
         $this->setIdUser();
         $this->setIdListe();
@@ -439,45 +499,4 @@ class ApiTest extends TestCase
         $res = json_decode($res);
         $this->assertEquals(true, $res->status);
     }
-
-    /*public function testCreatePosseder() {
-        $this->setIdUser();
-        $ch = curl_init();
-        $post = ['table'=>'liste', 'function'=>'createListe', 'title'=>'ma liste 1', 'description'=>'une description', 'visibility'=>1, 'idUser'=>$this->idUser];
-        $url = "localhost/projet-liste/main.php";
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = json_decode(curl_exec($ch), true);
-        curl_close($ch);
-        $this->setIdListe(true, 'ma liste 1');
-        $idListe1 = $this->idListe;
-        $ch = curl_init();
-        $post = ['table'=>'liste', 'function'=>'createListe', 'title'=>'ma liste 2', 'description'=>'une description', 'visibility'=>1, 'idUser'=>$this->idUser];
-        $url = "localhost/projet-liste/main.php";
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = json_decode(curl_exec($ch), true);
-        curl_close($ch);
-        $this->assertEquals(true, $res['status']);
-        $this->setIdListe(true, 'ma liste 2');
-        $idListe2 = $this->idListe;
-        $ch = curl_init();
-        $post = ['table'=>'posseder', 'function'=>'createPosseder', 'idListe1'=>$idListe1, 'idListe2'=>$idListe2];
-        $url = "localhost/projet-liste/main.php";
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = json_decode(curl_exec($ch), true);
-        var_dump(curl_exec($ch));
-        curl_close($ch);
-        $this->assertEquals(true, $res['status']);
-    }*/
 }

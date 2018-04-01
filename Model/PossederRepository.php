@@ -4,10 +4,11 @@ namespace Model;
 
 class PossederRepository extends Repository
 {
-    public function getEtiquette($id)
+    public function getEtiquette($idListe1, $idListe2)
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM etiquette WHERE idetiquette = :id');
-        $stmt->bindParam(':id', $id);
+        $stmt = $this->pdo->prepare('SELECT * FROM posseder WHERE liste_idliste = :id1 AND liste_idliste1 = :id2');
+        $stmt->bindParam(':id1', $idListe1);
+        $stmt->bindParam(':id2', $idListe2);
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
@@ -28,31 +29,34 @@ class PossederRepository extends Repository
         }
     }
 
-    public function updateEtiquette($tag, $idUser, $idEtiquette) {
+    public function updatePosseder($idListe1, $idListe2, $newListe1, $newListe2) {
         try {
-            $stmt = $this->pdo->prepare('UPDATE etiquette SET tag=:tag, idUser=:idUser WHERE idetiquette = :idEtiquette');
-            $stmt->bindParam(':tag', $tag);
-            $stmt->bindParam(':idUser', $idUser);
-            $stmt->bindParam(':idEtiquette', $idEtiquette);
+            $stmt = $this->pdo->prepare('UPDATE posseder SET liste_idliste=:liste_idliste, liste_idliste1=:liste_idliste1 WHERE liste_idliste = :newIdListe1 AND liste_idliste1 = :newIdListe2');
+            $stmt->bindParam(':liste_idliste', $idListe1);
+            $stmt->bindParam(':liste_idliste1', $idListe2);
+            $stmt->bindParam(':newIdListe1', $newListe1);
+            $stmt->bindParam(':newIdListe2', $newListe2);
             $stmt->execute();
             //curl -X PUT --data "table=utilisateur&function=updateUtilisateur&pseudo=penisMEGA&password=222&permission=1&role=1&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
+            var_dump($e->getMessage());
             return false;
         }
     }
 
-    public function deleteEtiquette($id) {
+    public function deletePosseder($idListe1, $idListe2) {
         try {
-            $stmt = $this->pdo->prepare('DELETE FROM etiquette WHERE idetiquette = :id');
-            $stmt->bindParam(':id', $id);
+            $stmt = $this->pdo->prepare('DELETE FROM posseder WHERE liste_idliste = :idListe1 AND liste_idliste1 = :idListe2');
+            $stmt->bindParam(':idListe1', $idListe1);
+            $stmt->bindParam(':idListe2', $idListe2);
             $stmt->execute();
             //curl -X DELETE --data "table=utilisateur&function=deleteUtilisateur&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-
+            var_dump($e->getMessage());
             return false;
         }
     }
