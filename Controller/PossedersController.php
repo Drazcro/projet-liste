@@ -32,13 +32,15 @@ class PossedersController extends HttpController
      */
     private function get()
     {
-        $idListe1 = $this->getData[1];
-        $idListe2 = $this->getData[2];
+        $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
+        $idListe2 = isset($this->getData[2])?$this->getData[2]:null;
         //url : GET /posseders/{idListe1]/{idListe2}
         if(sizeof($this->getData) == 3 && isset($idListe1) && !empty($idListe1) && isset($idListe2) && !empty($idListe2))
             $d = $this->repository->getPosseder($idListe1, $idListe2);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -66,8 +68,8 @@ class PossedersController extends HttpController
      */
     private function delete()
     {
-        $idListe1 = $this->getData[1];
-        $idListe2 = $this->getData[2];
+        $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
+        $idListe2 = isset($this->getData[2])?$this->getData[2]:null;
         if(isset($idListe1) && !empty($idListe1) && isset($idListe2) && !empty($idListe2))
             $d = $this->repository->deletePosseder($idListe1, $idListe2);
         else
@@ -85,8 +87,8 @@ class PossedersController extends HttpController
      */
     private function put()
     {
-        $idListe1 = $this->getData[1];
-        $idListe2 = $this->getData[2];
+        $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
+        $idListe2 = isset($this->getData[2])?$this->getData[2]:null;
         if(isset($idListe1) && !empty($idListe1) && isset($idListe2) && !empty($idListe2) && isset($this->postData['newIdListe1']) && isset($this->postData['newIdListe2']))
             $d = $this->repository->updatePosseder($idListe1, $idListe2, $this->postData['newIdListe1'], $this->postData['newIdListe2']);
         else

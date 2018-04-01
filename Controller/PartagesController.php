@@ -32,13 +32,15 @@ class PartagesController extends HttpController
      */
     private function get()
     {
-        $idUser= $this->getData[1];
-        $idListe = $this->getData[2];
+        $idUser= isset($this->getData[1])?$this->getData[1]:null;
+        $idListe = isset($this->getData[2])?$this->getData[2]:null;
         //url : GET /partages/{idUser}/{idListe}
         if(sizeof($this->getData) == 3 && isset($idUser) && !empty($idUser) && isset($idListe) && !empty($idListe))
             $d = $this->repository->getPartage($idUser, $idListe);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -67,8 +69,8 @@ class PartagesController extends HttpController
      */
     private function delete()
     {
-        $idUser= $this->getData[1];
-        $idListe = $this->getData[2];
+        $idUser= isset($this->getData[1])?$this->getData[1]:null;
+        $idListe = isset($this->getData[2])?$this->getData[2]:null;
         if(isset($idUser) && !empty($idUser) && isset($idListe) && !empty($idListe))
             $d = $this->repository->deletePartage($idUser, $idListe);
         else
@@ -86,8 +88,8 @@ class PartagesController extends HttpController
      */
     private function put()
     {
-        $idUser= $this->getData[1];
-        $idListe = $this->getData[2];
+        $idUser= isset($this->getData[1])?$this->getData[1]:null;
+        $idListe = isset($this->getData[2])?$this->getData[2]:null;
         if(isset($idUser) && !empty($idUser) && isset($idListe) && !empty($idListe) && isset($this->postData['newIdUser']) && isset($this->postData['newIdListe']) && isset($this->postData['autorisation']))
             $d = $this->repository->updatePartage($idUser, $idListe, $this->postData['autorisation'], $this->postData['newIdUser'], $this->postData['newIdListe']);
         else

@@ -32,12 +32,14 @@ class ElementsController extends HttpController
      */
     private function get()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /elements/{id}
         if(sizeof($this->getData) == 2 && isset($id) && !empty($id))
             $d = $this->repository->getElement($id);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -65,7 +67,7 @@ class ElementsController extends HttpController
      */
     private function delete()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($id) && !empty($id))
             $d = $this->repository->deleteElement($id);
         else
@@ -83,7 +85,7 @@ class ElementsController extends HttpController
      */
     private function put()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($this->postData['date_creation']) && isset($this->postData['date_modif']) && isset($this->postData['titre']) && isset($this->postData['description']) && isset($this->postData['statut']) && isset($this->postData['idListe']) && isset($id) && !empty($id))
             $d = $this->repository->updateElement($this->postData['date_creation'], $this->postData['date_modif'], $this->postData['titre'], $this->postData['description'], $this->postData['statut'], $this->postData['idListe'], $id);
         else

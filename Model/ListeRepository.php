@@ -17,9 +17,10 @@ class ListeRepository extends Repository
             $stmt->execute();
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         }
-            //curl -X GET localhost/projet-liste/main.php/liste/1
         catch(\Exception $e) {
-            return false;
+           $ec = new \Exceptions\DatabaseException($e->getCode());
+           $ec->configurateDatabaseMessage();
+           $ec->setResponse();
         }
     }
 
@@ -31,11 +32,12 @@ class ListeRepository extends Repository
             $stmt->bindParam(':visibility', $visibility);
             $stmt->bindParam(':idUser', $id);
             $stmt->execute();
-            //curl -X POST --data "description=penis&title=superpenis&idUser=2&visibility=1" localhost/projet-liste/main.php/liste
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -44,11 +46,12 @@ class ListeRepository extends Repository
             $stmt = $this->pdo->prepare('DELETE FROM liste WHERE idListe=:id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            //curl -X DELETE localhost/projet-liste/main.php/liste/184
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -61,11 +64,12 @@ class ListeRepository extends Repository
             $stmt->bindParam(':idUser', $idUser);
             $stmt->bindParam(':idListe', $idListe);
             $stmt->execute();
-            //curl -X PUT --data "description=penis&title=superpenis&idUser=1&visibility=1" localhost/projet-liste/main.php/liste/185
             return true;
-            }
+        }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 }

@@ -24,7 +24,9 @@ class PartageRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -37,11 +39,12 @@ class PartageRepository extends Repository
             $stmt->bindParam(':utilisateur_idUser2', $newIdUser);
             $stmt->bindParam(':liste_idliste2', $newIdListe);
             $stmt->execute();
-            //curl -X PUT --data "table=utilisateur&function=updateUtilisateur&pseudo=penisMEGA&password=222&permission=1&role=1&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -51,12 +54,12 @@ class PartageRepository extends Repository
             $stmt->bindParam(':utilisateur_idUser', $utilisateur_idUser);
             $stmt->bindParam(':liste_idliste', $liste_idliste);
             $stmt->execute();
-            //curl -X DELETE --data "table=utilisateur&function=deleteUtilisateur&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 }

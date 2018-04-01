@@ -22,7 +22,9 @@ class EtiquetteRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -37,7 +39,9 @@ class EtiquetteRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -50,8 +54,9 @@ class EtiquetteRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 }

@@ -15,7 +15,6 @@ class PossederRepository extends Repository
 
     public function createPosseder($idliste1, $idliste2) {
         try {
-           // echo 'laaaaaaaaa';
             $stmt = $this->pdo->prepare('INSERT INTO posseder (liste_idliste, liste_idliste1) VALUES (:idliste1, :idliste2)');
             $stmt->bindParam(':idliste1', $idliste1);
             $stmt->bindParam(':idliste2', $idliste2);
@@ -24,8 +23,9 @@ class PossederRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            var_dump($e->getMessage());
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -37,7 +37,6 @@ class PossederRepository extends Repository
             $stmt->bindParam(':newIdListe1', $newListe1);
             $stmt->bindParam(':newIdListe2', $newListe2);
             $stmt->execute();
-            //curl -X PUT --data "table=utilisateur&function=updateUtilisateur&pseudo=penisMEGA&password=222&permission=1&role=1&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
@@ -52,12 +51,12 @@ class PossederRepository extends Repository
             $stmt->bindParam(':idListe1', $idListe1);
             $stmt->bindParam(':idListe2', $idListe2);
             $stmt->execute();
-            //curl -X DELETE --data "table=utilisateur&function=deleteUtilisateur&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-            var_dump($e->getMessage());
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 }

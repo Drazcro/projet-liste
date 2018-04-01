@@ -32,12 +32,14 @@ class UtilisateursController extends HttpController
      */
     private function get()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         // url : GET /utilisateurs/{id}
         if(sizeof($this->getData) == 2 && isset($id) && !empty($id))
             $d = $this->repository->getUtilisateur($id);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -65,7 +67,7 @@ class UtilisateursController extends HttpController
      */
     private function delete()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         if( isset($id) && !empty($id))
             $d = $this->repository->deleteUtilisateur($id);
         else
@@ -83,7 +85,7 @@ class UtilisateursController extends HttpController
      */
     private function put()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($this->postData['pseudo']) && isset($this->postData['password']) && isset($this->postData['permission']) && isset($this->postData['role']) && isset($id) && !empty($id))
             $d = $this->repository->updateUtilisateur($this->postData['pseudo'], $this->postData['password'], $this->postData['permission'], $this->postData['role'], $id);
         else

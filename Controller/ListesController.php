@@ -39,7 +39,7 @@ class ListesController extends HttpController
      */
     private function get()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /listes
         if(sizeof($this->getData) == 1)
             $d = true;
@@ -48,6 +48,8 @@ class ListesController extends HttpController
             $d = $this->repository->getListe($id);
         else
             throw new HttpException(400,'L\'id n\'est pas bien défini ou n\'est pas fourni.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 

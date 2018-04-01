@@ -26,7 +26,9 @@ class ElementRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -41,11 +43,12 @@ class ElementRepository extends Repository
             $stmt->bindParam(':idListe', $idListe);
             $stmt->bindParam(':idElement', $idElement);
             $stmt->execute();
-            //curl -X PUT --data "table=utilisateur&function=updateUtilisateur&pseudo=penisMEGA&password=222&permission=1&role=1&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -54,11 +57,12 @@ class ElementRepository extends Repository
             $stmt = $this->pdo->prepare('DELETE FROM element WHERE idelements=:id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            //curl -X DELETE --data "table=utilisateur&function=deleteUtilisateur&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 }

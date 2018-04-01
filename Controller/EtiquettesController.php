@@ -32,12 +32,14 @@ class EtiquettesController extends HttpController
      */
     private function get()
     {
-        $id = $this->getData[1];
+        isset($this->getData[1])?$this->getData[1]:null;
         // url : GET /etiquettes/{id}
         if(sizeof($this->getData) == 2 && isset($id) && !empty($id))
             $d = $this->repository->getEtiquette($id);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -63,7 +65,7 @@ class EtiquettesController extends HttpController
      */
     private function delete()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($id) && !empty($id))
             $d = $this->repository->deleteEtiquette($id);
         else
@@ -81,7 +83,7 @@ class EtiquettesController extends HttpController
      */
     private function put()
     {
-        $id = $this->getData[1];
+        $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($this->postData['tag']) && isset($this->postData['idUser']) && isset($id) && !empty($id))
             $d = $this->repository->updateEtiquette($this->postData['tag'], $this->postData['idUser'], $id);
         else

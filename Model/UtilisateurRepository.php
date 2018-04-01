@@ -21,11 +21,12 @@ class UtilisateurRepository extends Repository
             $stmt->bindValue(':permission', $permission);
             $stmt->bindValue(':role', $role);
             $stmt->execute();
-            //curl -X POST --data "pseudo=penis&password=222&permission=1&role=1" localhost/projet-liste/main.php/utilisateurs
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -39,11 +40,12 @@ class UtilisateurRepository extends Repository
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            //curl -X PUT --data "table=utilisateur&function=updateUtilisateur&pseudo=penisMEGA&password=222&permission=1&role=1&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 
@@ -52,11 +54,12 @@ class UtilisateurRepository extends Repository
             $stmt = $this->pdo->prepare('DELETE FROM utilisateur WHERE idUser=:id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            //curl -X DELETE --data "table=utilisateur&function=deleteUtilisateur&idUser=1" localhost/projet-liste/main.php
             return true;
         }
         catch(\Exception $e) {
-            return false;
+            $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();
         }
     }
 }

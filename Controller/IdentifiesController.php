@@ -33,12 +33,14 @@ class IdentifiesController extends HttpController
     private function get()
     {
         //url : GET /identifies/{idElements}/{idEtiquette}
-        $idElements = $this->getData[1];
-        $idEtiquette = $this->getData[2];
+        $idElements = isset($this->getData[1])?$this->getData[1]:null;
+        $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
         if(sizeof($this->getData) == 3 && isset($idElements) && !empty($idElements) && isset($idEtiquette) && !empty($idEtiquette))
             $d = $this->repository->getIdentifie($idElements, $idEtiquette);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
+        if($d == false)
+            throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -66,8 +68,8 @@ class IdentifiesController extends HttpController
      */
     private function delete()
     {
-        $idElements = $this->getData[1];
-        $idEtiquette = $this->getData[2];
+        $idElements = isset($this->getData[1])?$this->getData[1]:null;
+        $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
         if(isset($idElements) && !empty($idElements) && isset($idEtiquette) && !empty($idEtiquette))
             $d = $this->repository->deleteIdentifie($idElements, $idEtiquette);
         else
@@ -85,8 +87,8 @@ class IdentifiesController extends HttpController
      */
     private function put()
     {
-        $idElements = $this->getData[1];
-        $idEtiquette = $this->getData[2];
+        $idElements = isset($this->getData[1])?$this->getData[1]:null;
+        $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
         if(isset($idElements) && !empty($idElements) && isset($idEtiquette) && !empty($idEtiquette) && isset($this->postData['newIdElements']) && isset($this->postData['newIdEtiquette']))
             $d = $this->repository->updateIdentifie($idElements, $idEtiquette, $this->postData['newIdElements'], $this->postData['newIdEtiquette']);
         else
