@@ -9,12 +9,15 @@ require_once (DIR."/Autoloader.php");
 abstract class HttpController
 {
     protected $method;
-    protected $data;
-    //protected $fields;
+    protected $getData;
+    protected $postData;
+    protected $table;
+    protected $urlData;
 
-    public function __construct () {
-        $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->data = $_REQUEST;
+    public function __construct ($getData, $postData, $method) {
+        $this->method = $method;
+        $this->getData = $getData;
+        $this->postData = $postData;
     }
 
     public function httpResponse($message)
@@ -23,12 +26,4 @@ abstract class HttpController
         $r = new HttpResponse();
         $r->json_response($message);
     }
-
-    /*protected function testIsset() {
-        foreach ($this->fields as $f) {
-            if(!isset($data[$f]))
-                return false;
-        }
-        return true;
-    }*/
 }

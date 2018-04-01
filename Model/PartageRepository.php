@@ -28,14 +28,14 @@ class PartageRepository extends Repository
         }
     }
 
-    public function updatePartage($utilisateur_idUser, $liste_idliste, $autorisation) {
+    public function updatePartage($utilisateur_idUser, $liste_idliste, $autorisation, $newIdUser, $newIdListe) {
         try {
             $stmt = $this->pdo->prepare('UPDATE partage SET utilisateur_idUser=:utilisateur_idUser, liste_idliste=:liste_idliste, autorisation=:autorisation WHERE utilisateur_idUser = :utilisateur_idUser2 AND liste_idliste=:liste_idliste2');
             $stmt->bindParam(':utilisateur_idUser', $utilisateur_idUser);
             $stmt->bindParam(':liste_idliste', $liste_idliste);
             $stmt->bindParam(':autorisation', $autorisation);
-            $stmt->bindParam(':utilisateur_idUser2', $utilisateur_idUser);
-            $stmt->bindParam(':liste_idliste2', $liste_idliste);
+            $stmt->bindParam(':utilisateur_idUser2', $newIdUser);
+            $stmt->bindParam(':liste_idliste2', $newIdListe);
             $stmt->execute();
             //curl -X PUT --data "table=utilisateur&function=updateUtilisateur&pseudo=penisMEGA&password=222&permission=1&role=1&idUser=1" localhost/projet-liste/main.php
             return true;

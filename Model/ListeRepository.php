@@ -9,21 +9,18 @@ namespace Model;
  */
 class ListeRepository extends Repository
 {
-
-    public function get(...$p)
-    {
-        $id = $p[0];
-        $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = '.$id. ' OR visibility = 1 OR idListe IN (SELECT liste_idliste FROM partage WHERE utilisateur_idUser = '.$id.')');
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
-
     public function getListe($id)
     {
-        $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = :id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        try {
+            $stmt = $this->pdo->prepare('SELECT title,description FROM liste WHERE idUser = :id');
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        }
+            //curl -X GET localhost/projet-liste/main.php/liste/1
+        catch(\Exception $e) {
+            return false;
+        }
     }
 
     public function createListe($id, $description, $visibility, $title) {
@@ -34,7 +31,7 @@ class ListeRepository extends Repository
             $stmt->bindParam(':visibility', $visibility);
             $stmt->bindParam(':idUser', $id);
             $stmt->execute();
-            //curl -X POST --data "table=liste&function=createListe&description=penis&title=superpenis&idUser=1&visibility=1" localhost/projet-liste/main.php
+            //curl -X POST --data "description=penis&title=superpenis&idUser=2&visibility=1" localhost/projet-liste/main.php/liste
             return true;
         }
         catch(\Exception $e) {
@@ -47,7 +44,7 @@ class ListeRepository extends Repository
             $stmt = $this->pdo->prepare('DELETE FROM liste WHERE idListe=:id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            //curl -X DELETE --data "table=liste&function=deleteListe&idListe=1" localhost/projet-liste/main.php
+            //curl -X DELETE localhost/projet-liste/main.php/liste/184
             return true;
         }
         catch(\Exception $e) {
@@ -64,11 +61,11 @@ class ListeRepository extends Repository
             $stmt->bindParam(':idUser', $idUser);
             $stmt->bindParam(':idListe', $idListe);
             $stmt->execute();
-            //curl -X PUT --data "table=liste&function=updateListe&description=penis&title=superpenis&idUser=1&visibility=1&idListe=1" localhost/projet-liste/main.php
+            //curl -X PUT --data "description=penis&title=superpenis&idUser=1&visibility=1" localhost/projet-liste/main.php/liste/185
             return true;
             }
         catch(\Exception $e) {
-        return false;
-}
+            return false;
+        }
     }
 }

@@ -16,13 +16,12 @@ class UtilisateurRepository extends Repository
         try {
             $password = hash('sha512',$password);
             $stmt = $this->pdo->prepare('INSERT INTO utilisateur (pseudo, password, permission, role) VALUES (:pseudo, :password, :permission, :role)');
-            $stmt->bindParam(':pseudo', $pseudo);
-            $stmt->bindParam(':password', $password);
-            $stmt->bindParam(':permission', $permission);
-            $stmt->bindParam(':role', $role);
+            $stmt->bindValue(':pseudo', $pseudo);
+            $stmt->bindValue(':password', $password);
+            $stmt->bindValue(':permission', $permission);
+            $stmt->bindValue(':role', $role);
             $stmt->execute();
-            $this->pdo->errorInfo();
-            //curl -X POST --data "table=utilisateur&function=createUtilisateur&pseudo=penis&password=222&permission=1&role=1" localhost/projet-liste/main.php
+            //curl -X POST --data "pseudo=penis&password=222&permission=1&role=1" localhost/projet-liste/main.php/utilisateurs
             return true;
         }
         catch(\Exception $e) {

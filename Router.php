@@ -8,29 +8,45 @@ require_once ("Autoloader.php");
  */
 class Router
 {
+    private $getData;
+    private $postData;
+    private $method;
+
+    public function __construct()
+    {
+        $this->method = $_SERVER['REQUEST_METHOD'];
+        if ('PUT' == $this->method || 'DELETE' == $this->method)
+            parse_str(file_get_contents('php://input'), $_REQUEST);
+        $this->setData();
+    }
+
     public function root()
     {
         \Autoloader::register();
         try {
-            $method = $_SERVER['REQUEST_METHOD'];
-            if ('PUT' == $method) {
-                parse_str(file_get_contents('php://input'), $_REQUEST);
-            }
-            else if('DELETE' == $method) {
-                parse_str(file_get_contents('php://input'), $_REQUEST);
-            }
-            if(!isset($_REQUEST['table']))
+            $table = $this->getData[0];
+            if(!isset($table) && !empty($table))
                 throw new \Exceptions\HttpException(404, 'Je dois faire quoi ?');
-            $name = 'Controller\\'.$_REQUEST['table'].'Controller';
+            $name = 'Controller\\'.$table.'Controller';
             $nameToTest = str_replace('\\', '/', $name).'.php';
             if(!file_exists($nameToTest)) {
-                throw new \Exceptions\HttpException(400, 'La table '.$_REQUEST['table'].' n\'existe pas.');
+                throw new \Exceptions\HttpException(400, 'La table '.$table.' n\'existe pas.');
             }
-            $controller = new $name($_SERVER['REQUEST_METHOD']);
+            $controller = new $name($this->getData, $this->postData, $this->method);
             $controller->action();
         }
         catch (\Exceptions\HttpException $e) {
             $e->setResponse();
         }
+    }
+
+    private function setData() {
+        if(isset($_SERVER['PATH_INFO'])) {
+            $url = explode('/', $_SERVER['PATH_INFO']);
+            $this->getData = array_splice($url, 1);
+            $this->postData = $_REQUEST;
+        }
+        else
+            throw new \Exceptions\HttpException(404, 'Je dois faire quoi ?');
     }
 }
