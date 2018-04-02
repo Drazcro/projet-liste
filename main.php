@@ -1,10 +1,10 @@
 <?php
+define('ENV', 'local');
 
+require_once (__DIR__."/params.php");
+require_once (__DIR__."/Router.php");
 
-define('DIR', preg_replace("#/main.php$#", "", $_SERVER['SCRIPT_FILENAME']));
-
-require_once (DIR."/params.php");
-require_once (DIR."/Router.php");
+\Autoloader::register();
 
 $r = new Router();
 

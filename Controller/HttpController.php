@@ -4,8 +4,6 @@ namespace Controller;
 
 use Utils\HttpResponse;
 
-require_once (DIR."/Autoloader.php");
-
 abstract class HttpController
 {
     protected $method;
@@ -22,7 +20,6 @@ abstract class HttpController
 
     public function httpResponse($message)
     {
-        \Autoloader::register();
         $r = new HttpResponse();
         $r->json_response($message);
     }

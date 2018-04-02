@@ -10,7 +10,7 @@ class DatabaseException extends HttpException
             case '42S22':
                 $this->message = 'Une erreur est survenue lors de la requête, veuillez prévenir l\'administrateur';
             default:
-                $this->message = 'Une erreur est survenue lors de la requête, veuillez prévenir l\'administrateur';
+                $this->message = "Un code d'erreur $this->code est survenue pendant l'opération.";
         }
     }
 }
