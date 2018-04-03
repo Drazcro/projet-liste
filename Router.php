@@ -25,8 +25,8 @@ class Router
     public function root()
     {
         try {
-            if(!isset($this->table) && !empty($this->table))
-                throw new \Exceptions\HttpException(404, 'Je dois faire quoi ?');
+            if(empty($this->table))
+                $this->table='Page';
             $name = 'Controller\\'.$this->table.'Controller';
             $nameToTest = str_replace('\\', '/', $name).'.php';
             if(!file_exists($nameToTest))

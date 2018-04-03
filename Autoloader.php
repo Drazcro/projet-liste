@@ -8,7 +8,6 @@ class Autoloader
 
     static function autoload($class){
         $path = str_replace('\\', '/', $class);
-        //var_dump($path);
         require_once $path . '.php';
     }
 }

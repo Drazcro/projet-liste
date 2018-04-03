@@ -1,10 +1,11 @@
 <?php
+$env = 'local';
 
-if(ENV == 'local') {
+if($env == 'local') {
     define('DB_NAME', 'projet_liste');
     define('DB_PASSWORD', '');
     define('DB_USER', 'root');
-    define('URL_test', '');
+    define('URL_test', 'http://localhost/projet-liste/main.php');
 }
 else {
     define('DB_NAME', 'id5080152_projetlistedb');

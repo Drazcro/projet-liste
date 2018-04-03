@@ -1,0 +1,48 @@
+body {
+    font-size: 14px;
+}
+
+h1 {
+    margin : 0;
+    height : 100%;
+    display: inline-block;
+}
+
+nav .badge {
+    margin-top: 23.5px;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 16px;
+    margin: 0;
+}
+
+h4 {
+    font-size: 15px;
+    margin: 0;
+}
+
+.collection {
+    border: 1px solid #e0e0e0 !important;
+}
+
+.collection .badge, .in-collapsible .collapsible-header .badge {
+    float: left;
+    padding: 0 6px;
+    margin-right: 14px;
+    margin-left: 0;
+}
+
+.in-collapsible {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.in-collapsible .collapsible-header {
+    padding: 10px 30px;
+}

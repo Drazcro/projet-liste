@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Api liste : Documentation</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" href="/projet-liste/Utils/global.css">
+</head>
+
+<body class="grey lighten-4">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper white valign-wrapper">
+            <h1><a href="./main.php" class="brand-logo center black-text">API <span class="white-text badge red">version 1.0</span></a>
+            </h1>
+        </div>
+    </nav>
+</div>
+<main>
+    <div class="container">
+        <div class="center">
+            <h2>Depôt l'API</h2>
+            <a class="waves-effect waves-light black btn-large" href="https://github.com/Drazcro/projet-liste">https://github.com/Drazcro/projet-liste</a>
+        </div>
+        <h2>Fonctionnement de l'API</h2>
+        Envoyer une requête HTTP à l'adresse <a>https://projet-liste2018.000webhostapp.com/api/v1</a>. L'API est de type
+        REST c'est à dire que vous devrez envoyer la la requête avec la bonne méthode :
+        <ul class="collection">
+            <li class="collection-item"><span class="white-text badge blue">GET</span> Récupérer des information, l'id
+                dans l'url
+            </li>
+            <li class="collection-item"><span class="white-text badge yellow">POST</span> Ajouter de l'information,
+                informations en paramètre
+            </li>
+            <li class="collection-item"><span class="white-text badge green">PUT</span> Modifier de l'information, l'id
+                de l'entités concernées dans l'url, les informations en paramètre
+            </li>
+            <li class="collection-item"><span class="white-text badge red">DELETE</span> Supprimer de l'information,
+                l'id dans l'url
+            </li>
+        </ul>
+        <h2>Liste des utilisations possible de l'API</h2>
+        <ul class="collapsible popout">
+            <li>
+                <div class="collapsible-header"><h3>Gestion des utilisateurs</h3></div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span> /utilisateurs/{id}
+                        </li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/utilisateurs
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>pseudo</td>
+                                            <td>Le pseudo de l'utilisateur</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>password</td>
+                                            <td>Le mot de passe NON CRYPTE de l'utilisateur</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>permission</td>
+                                            <td>La permission de l'utilisateur</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>role</td>
+                                            <td>Le rôle de l'utilisateur</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/utilisateurs/{id}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>pseudo</td>
+                                            <td>Le pseudo de l'utilisateur</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>password</td>
+                                            <td>Le mot de passe NON CRYPTE de l'utilisateur</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>permission</td>
+                                            <td>La permission de l'utilisateur</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>role</td>
+                                            <td>Le rôle de l'utilisateur</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/utilisateurs/{id}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Gestion des listes</div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span> /listes/{id}</li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/listes
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>title</td>
+                                            <td>Le nom de la liste</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>description</td>
+                                            <td>La description de la liste</td>
+                                            <td>TEXT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>visibility</td>
+                                            <td>La visibilité de la liste</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idUser</td>
+                                            <td>L'id de l'utilisateur créateur de la liste</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/listes/{id}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>title</td>
+                                            <td>Le nom de la liste</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>description</td>
+                                            <td>La description de la liste</td>
+                                            <td>TEXT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>visibility</td>
+                                            <td>La visibilité de la liste</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idUser</td>
+                                            <td>L'id de l'utilisateur créateur de la liste</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/listes/{id}</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Gestion des etiquettes</div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span> /etiquettes/{id}</li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/etiquettes
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>tag</td>
+                                            <td>Le nom du tag de l'étiquette</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idUser</td>
+                                            <td>L'id de l'utilisateur</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/etiquettes/{id}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>tag</td>
+                                            <td>Le nom du tag de l'étiquette</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idUser</td>
+                                            <td>L'id de l'utilisateur</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/etiquettes/{id}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Gestion des elements</div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span> /elements/{id}</li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/elements
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>date_creation</td>
+                                            <td>LA date de création de l'élément</td>
+                                            <td>DATE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>date_modif</td>
+                                            <td>Date de modification de l'élément</td>
+                                            <td>DATE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>titre</td>
+                                            <td>Titre de l'élément</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>description</td>
+                                            <td>Description de l'élément</td>
+                                            <td>TEXT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>statut</td>
+                                            <td>Statut de l'élément</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idListe</td>
+                                            <td>L'id de la liste associée</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/elements/{id}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            <td>date_creation</td>
+                                            <td>LA date de création de l'élément</td>
+                                            <td>DATE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>date_modif</td>
+                                            <td>Date de modification de l'élément</td>
+                                            <td>DATE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>titre</td>
+                                            <td>Titre de l'élément</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>description</td>
+                                            <td>Description de l'élément</td>
+                                            <td>TEXT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>statut</td>
+                                            <td>Statut de l'élément</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idListe</td>
+                                            <td>L'id de la liste associée</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/elements/{id}</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Gestion des possessions</div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span>
+                            /posseders/{idListe1}/{idListe2}
+                        </li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/posseders
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>idListe1</td>
+                                            <td>L'id de la première liste</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>idListe2</td>
+                                            <td>L'id de la deuxième liste</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/posseders/{idListe1}/{idListe2}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>newIdListe1</td>
+                                            <td>L'id de la première liste</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>newIdListe2</td>
+                                            <td>L'id de la deuxième liste</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/posseders/{idListe1}/{idListe2}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Gestion des identifications</div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span>
+                            /identifies/{idElements}/{idEtiquette}
+                        </li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/identifies
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>element_idElements</td>
+                                            <td>L'id de l'élément identifié</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>etiquette_idEtiquette</td>
+                                            <td>L'id de l'étiquette identifiant l'élément</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/identifies/{idElements}/{idEtiquette}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>newIdElements</td>
+                                            <td>L'id de l'élément identifié</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>newIdEtiquette</td>
+                                            <td>L'id de l'étiquette identifiant l'élément</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/identifies/{idElements}/{idEtiquette}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Gestion des partages</div>
+                <div class="collapsible-body grey lighten-3">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Interactions possibles</h4></li>
+                        <li class="collection-item"><span class="white-text badge blue">GET</span>
+                            /partages/{idUser}/{idListe}
+                        </li>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/partages
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>utilisateur_idUser</td>
+                                            <td>L'id de la l'utilisateur concerné</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>liste_idliste</td>
+                                            <td>L'id de la liste concernée</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>autorisation</td>
+                                            <td>Le type d'autorisation alouée</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="collapsible in-collapsible">
+                            <li>
+                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/partages/{idUser}/{idListe}
+                                </div>
+                                <div class="collapsible-body grey lighten-2">
+                                    <span class="black-text badge white">PARAMS</span>
+                                    <table class="centered highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>title</th>
+                                            <th>Description</th>
+                                            <th>Valeur</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>newIdUser</td>
+                                            <td>L'id de la l'utilisateur concerné</td>
+                                            <td>VARCHAR</td>
+                                        </tr>
+                                        <tr>
+                                            <td>newIdListe</td>
+                                            <td>L'id de la liste concernée</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>autorisation</td>
+                                            <td>Le type d'autorisation alouée</td>
+                                            <td>INT</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/partages/{idUser}/{idListe}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</main>
+<!--JavaScript at end of body for optimized loading-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/projet-liste/Utils/materialize/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible();
+    });
+</script>
+</body>
+</html>

@@ -66,9 +66,8 @@ class ApiTest extends TestCase
     public function testCreateUtilisateur()
     {
         $ch = curl_init();
-        //curl -X POST --data "pseudo=cedric&password=1234&permission=1&role=1" localhost/projet-liste/main.php/utilisateurs
         $post = ['pseudo' => 'cedric', 'password' => '1234', 'permission' => 1, 'role' => 1];
-        $url = "localhost/projet-liste/main.php/utilisateurs";
+        $url = URL_test."/utilisateurs";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -85,7 +84,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $ch = curl_init();
         $post = ['title' => 'ma liste', 'description' => 'une description', 'visibility' => 1, 'idUser' => $this->idUser];
-        $url = "localhost/projet-liste/main.php/listes";
+        $url = URL_test."/listes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -105,7 +104,7 @@ class ApiTest extends TestCase
         $dateModif = new \DateTime();
         $ch = curl_init();
         $post = ['date_creation' => date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif' => date_format($dateModif, 'Y-m-d H:i:s'), 'titre' => 'un element', 'description' => 'un super element', 'statut' => 1, 'idListe' => $this->idListe];
-        $url = "localhost/projet-liste/main.php/elements";
+        $url = URL_test."/elements";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -122,7 +121,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $ch = curl_init();
         $post = ['tag' => 'mon tag', 'idUser' => $this->idUser];
-        $url = "localhost/projet-liste/main.php/etiquettes";
+        $url = URL_test."/etiquettes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -142,7 +141,7 @@ class ApiTest extends TestCase
         $this->setIdElement();
         $ch = curl_init();
         $post = ['element_idElements' => $this->idElement, 'etiquette_idEtiquette' => $this->idEtiquette];
-        $url = "localhost/projet-liste/main.php/identifies";
+        $url = URL_test."/identifies";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -160,7 +159,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $post = ['utilisateur_idUser' => $this->idUser, 'liste_idliste' => $this->idListe, 'autorisation' => 1];
-        $url = "localhost/projet-liste/main.php/partages";
+        $url = URL_test."/partages";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -178,7 +177,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $post = ['idListe1' => $this->idListe, 'idListe2' => $this->idListe];
-        $url = "localhost/projet-liste/main.php/posseders";
+        $url = URL_test."/posseders";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -194,7 +193,7 @@ class ApiTest extends TestCase
     {
         $this->setIdUser();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/utilisateurs/$this->idUser";
+        $url = URL_test."/utilisateurs/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -209,7 +208,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/listes/$this->idListe";
+        $url = URL_test."/listes/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -225,7 +224,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $this->setIdElement();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/elements/$this->idElement";
+        $url = URL_test."/elements/$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -240,7 +239,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdEtiquette();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/etiquettes/$this->idEtiquette";
+        $url = URL_test."/etiquettes/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -257,7 +256,7 @@ class ApiTest extends TestCase
         $this->setIdElement();
         $this->setIdEtiquette();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/identifies/$this->idElement/$this->idEtiquette";
+        $url = URL_test."/identifies/$this->idElement/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -272,7 +271,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/partages/$this->idUser/$this->idListe";
+        $url = URL_test."/partages/$this->idUser/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -287,7 +286,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/posseders/$this->idListe/$this->idListe";
+        $url = URL_test."/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -303,7 +302,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $ch = curl_init();
         $post = ['pseudo' => 'cedric', 'password' => '12534', 'permission' => 1, 'role' => 1];
-        $url = "localhost/projet-liste/main.php/utilisateurs/$this->idUser";
+        $url = URL_test."/utilisateurs/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -320,7 +319,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $post = ['idUser' => $this->idUser, 'title' => 'ma liste 2', 'description' => 'une description 2', 'visibility' => 1];
-        $url = "localhost/projet-liste/main.php/listes/$this->idListe";
+        $url = URL_test."/listes/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -340,7 +339,7 @@ class ApiTest extends TestCase
         $dateCrea = new \DateTime();
         $dateModif = new \DateTime();
         $post = ['date_creation' => date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif' => date_format($dateModif, 'Y-m-d H:i:s'), 'titre' => "nouveau titre", 'description' => 'une nouvelle description', 'statut' => 1, 'idListe' => $this->idListe];
-        $url = "localhost/projet-liste/main.php/elements/$this->idElement";
+        $url = URL_test."/elements/$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -357,7 +356,7 @@ class ApiTest extends TestCase
         $this->setIdEtiquette();
         $ch = curl_init();
         $post = ['idUser' => $this->idUser, 'tag' => 'new tag', 'idEtiquette' => $this->idEtiquette];
-        $url = "localhost/projet-liste/main.php/etiquettes/{id}";
+        $url = URL_test."/etiquettes/{id}";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -376,7 +375,7 @@ class ApiTest extends TestCase
         $this->setIdEtiquette();
         $ch = curl_init();
         $post = ['newIdElements' => $this->idElement, 'newIdEtiquette' => $this->idEtiquette];
-        $url = "localhost/projet-liste/main.php/identifies/$this->idElement/$this->idEtiquette";
+        $url = URL_test."/identifies/$this->idElement/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -393,7 +392,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $post = ['newIdUser' => $this->idUser, 'newIdListe' => $this->idListe, 'autorisation' => 0];
-        $url = "localhost/projet-liste/main.php/partages/$this->idUser/$this->idListe";
+        $url = URL_test."/partages/$this->idUser/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -410,7 +409,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $post = ['newIdListe1' => $this->idUser, 'newIdListe2' => $this->idListe];
-        $url = "localhost/projet-liste/main.php/posseders/$this->idListe/$this->idListe";
+        $url = URL_test."/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -427,7 +426,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/posseders/$this->idListe/$this->idListe";
+        $url = URL_test."/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -442,7 +441,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/partages/$this->idUser/$this->idListe";
+        $url = URL_test."/partages/$this->idUser/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -459,7 +458,7 @@ class ApiTest extends TestCase
         $this->setIdElement();
         $this->setIdEtiquette();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/identifies/$this->idElement/$this->idEtiquette";
+        $url = URL_test."/identifies/$this->idElement/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -474,7 +473,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdEtiquette();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/etiquettes/$this->idEtiquette";
+        $url = URL_test."/etiquettes/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -490,7 +489,7 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $this->setIdElement();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/elements/$this->idElement";
+        $url = URL_test."/elements/$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -505,7 +504,7 @@ class ApiTest extends TestCase
         $this->setIdUser();
         $this->setIdListe();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/listes/$this->idListe";
+        $url = URL_test."/listes/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -519,7 +518,7 @@ class ApiTest extends TestCase
     {
         $this->setIdUser();
         $ch = curl_init();
-        $url = "localhost/projet-liste/main.php/utilisateurs/$this->idUser";
+        $url = URL_test."/utilisateurs/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
