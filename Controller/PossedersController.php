@@ -6,9 +6,9 @@ use Exceptions\HttpException;
 
 class PossedersController extends HttpController
 {
-    public function __construct($getData, $postData, $method)
+    public function __construct($getData, $postData, $url, $method)
     {
-        parent::__construct($getData, $postData, $method);
+        parent::__construct($getData, $postData, $url, $method);
         $this->repository = new \Model\PossederRepository();
     }
 
@@ -35,10 +35,10 @@ class PossedersController extends HttpController
         $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
         $idListe2 = isset($this->getData[2])?$this->getData[2]:null;
         //url : GET /posseders/{idListe1]/{idListe2}
-        if(sizeof($this->getData) == 3 && isset($idListe1) && !empty($idListe1) && isset($idListe2) && !empty($idListe2))
+        if(preg_match('#^/posseders/(\d)+/(\d)+$#', $this->url))
             $d = $this->repository->getPosseder($idListe1, $idListe2);
         else
-            throw new HttpException(400, 'L\'id n\'est pas indique.');
+            throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
@@ -81,7 +81,7 @@ class PossedersController extends HttpController
     }
 
     /**
-     * url : PUT /posseders/{idListe1]/{idListe2} + POST params
+     * url : PUT /posseders/{idListe1]/{idListe2} + PUT params
      * @return string
      * @throws HttpException
      */

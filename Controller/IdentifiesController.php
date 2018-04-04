@@ -6,9 +6,9 @@ use Exceptions\HttpException;
 
 class IdentifiesController extends HttpController
 {
-    public function __construct($getData, $postData, $method)
+    public function __construct($getData, $postData, $url, $method)
     {
-        parent::__construct($getData, $postData, $method);
+        parent::__construct($getData, $postData, $url, $method);
         $this->repository = new \Model\IdentifieRepository();
     }
 
@@ -35,10 +35,10 @@ class IdentifiesController extends HttpController
         //url : GET /identifies/{idElements}/{idEtiquette}
         $idElements = isset($this->getData[1])?$this->getData[1]:null;
         $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
-        if(sizeof($this->getData) == 3 && isset($idElements) && !empty($idElements) && isset($idEtiquette) && !empty($idEtiquette))
+        if(preg_match('#^/identifies/(\d)+/(\d)+$#', $this->url))
             $d = $this->repository->getIdentifie($idElements, $idEtiquette);
         else
-            throw new HttpException(400, 'L\'id n\'est pas indique.');
+            throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
@@ -81,7 +81,7 @@ class IdentifiesController extends HttpController
     }
 
     /**
-     * url : PUT /identifies/{idElements}/{idEtiquette}
+     * url : PUT /identifies/{idElements}/{idEtiquette} + PUT params
      * @return string
      * @throws HttpException
      */

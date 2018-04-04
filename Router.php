@@ -12,7 +12,8 @@ class Router
     private $postData;
     private $method;
     private $table;
-    private $looger;
+    private $logger;
+    private $url;
 
     public function __construct()
     {
@@ -34,7 +35,7 @@ class Router
             $nameToTest = str_replace('\\', '/', $name).'.php';
             if(!file_exists($nameToTest))
                 throw new \Exceptions\HttpException(400, 'La table '.$this->table.' n\'existe pas.');
-            $controller = new $name($this->getData, $this->postData, $this->method);
+            $controller = new $name($this->getData, $this->postData, $this->url, $this->method);
             $controller->action();
         }
         catch (\Exceptions\HttpException $e) {
@@ -46,7 +47,14 @@ class Router
         if(isset($_SERVER['PATH_INFO'])) {
             $url = explode('/', $_SERVER['PATH_INFO']);
             $this->getData = array_splice($url, 1);
-            $this->postData = $_REQUEST;
+            $this->url = $_SERVER['PATH_INFO'];
         }
+        //Adapatation alwaysdata
+        elseif(isset($_SERVER['ORIG_PATH_INFO'])) {
+            $url = explode('/', $_SERVER['ORIG_PATH_INFO']);
+            $this->url = $_SERVER['ORIG_PATH_INFO'];
+            $this->getData = array_splice($url, 1);
+        }
+        $this->postData = $_REQUEST;
     }
 }

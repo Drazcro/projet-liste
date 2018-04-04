@@ -17,7 +17,7 @@ class ApiTest extends TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->pdo = new \PDO('mysql:host=localhost;dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
+        $this->pdo = new \PDO('mysql:host='.DB_HOST.';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
     }
 
     //Fonctions utiles
@@ -298,6 +298,22 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res->status);
     }
 
+    public function testGetElementsByListe()
+    {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $ch = curl_init();
+        $url = URL_test."/listes/$this->idListe/elements";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
     public function testGetEtiquette()
     {
         $this->setIdUser();
@@ -390,8 +406,18 @@ class ApiTest extends TestCase
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
         $res = curl_exec($ch);
         curl_close($ch);
+
+        $ch = curl_init();
+        $post = ['idUser' => 79, 'title' => 'ma liste 2', 'description' => 'une description 2', 'visibility' => 1];
+        $url = URL_test."/listes/ABCD72";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        $res = curl_exec($ch);
+        curl_close($ch);
         $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(false, $res->status);
     }
 
     public function testUpdateElement()
@@ -437,17 +463,54 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $this->setIdElement();
         $this->setIdEtiquette();
+        $idElement = $this->idElement;
+        $idEtiquette = $this->idEtiquette;
+
         $ch = curl_init();
-        $post = ['newIdElements' => $this->idElement, 'newIdEtiquette' => $this->idEtiquette];
-        $url = URL_test."/identifies/$this->idElement/$this->idEtiquette";
+        $post = ['tag' => 'mon tag 2', 'idUser' => $this->idUser];
+        $url = URL_test."/etiquettes";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM etiquette WHERE tag = "mon tag 2"');
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $newIdEtiquette = $d['idetiquette'];
+
+        $dateCrea = new \DateTime();
+        $dateModif = new \DateTime();
+        $ch = curl_init();
+        $post = ['date_creation' => date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif' => date_format($dateModif, 'Y-m-d H:i:s'), 'titre' => 'un element bis', 'description' => 'un super element bis', 'statut' => 1, 'idListe' => $this->idListe];
+        $url = URL_test."/elements";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        curl_exec($ch);
+        curl_close($ch);
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM element WHERE titre = "un element bis"');
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $newIdElement = $d['idelements'];
+
+        $ch = curl_init();
+        $post = ['newIdElements' => $newIdElement, 'newIdEtiquette' => $newIdEtiquette];
+        $url = URL_test."/identifies/$idElement/$idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
         $res = curl_exec($ch);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
     }
 
     public function testUpdatePartage()
@@ -471,8 +534,25 @@ class ApiTest extends TestCase
     {
         $this->setIdUser();
         $this->setIdListe();
+
         $ch = curl_init();
-        $post = ['newIdListe1' => $this->idUser, 'newIdListe2' => $this->idListe];
+        $post = ['title' => 'ma nouvelle liste bis', 'description' => 'une description', 'visibility' => 1, 'idUser' => $this->idUser];
+        $url = URL_test."/listes";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM liste WHERE title = "ma nouvelle liste bis"');
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $newIdListe = $d['idliste'];
+        $ch = curl_init();
+        $post = ['newIdListe1' => $this->idListe, 'newIdListe2' => $newIdListe];
         $url = URL_test."/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -489,8 +569,18 @@ class ApiTest extends TestCase
     {
         $this->setIdUser();
         $this->setIdListe();
+
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM liste WHERE title = "ma nouvelle liste bis"');
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $idListe = $d['idliste'];
+
+        $this->setIdUser();
+        $this->setIdListe();
         $ch = curl_init();
-        $url = URL_test."/posseders/$this->idListe/$this->idListe";
+        $url = URL_test."/posseders/$this->idListe/$idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -517,12 +607,22 @@ class ApiTest extends TestCase
 
     public function testDeleteIdentifie()
     {
-        $this->setIdUser();
-        $this->setIdListe();
-        $this->setIdElement();
-        $this->setIdEtiquette();
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM element WHERE titre= "un element bis"');
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $idElement = $d['idelements'];
+
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $stmt = $this->pdo->prepare('SELECT * FROM etiquette WHERE tag= "mon tag 2"');
+        $stmt->execute();
+        $d = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $idEtiquette = $d['idetiquette'];
+
         $ch = curl_init();
-        $url = URL_test."/identifies/$this->idElement/$this->idEtiquette";
+        $url = URL_test."/identifies/$idElement/$idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

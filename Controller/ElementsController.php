@@ -6,9 +6,9 @@ use Exceptions\HttpException;
 
 class ElementsController extends HttpController
 {
-    public function __construct($getData, $postData, $method)
+    public function __construct($getData, $postData, $url, $method)
     {
-        parent::__construct($getData, $postData, $method);
+        parent::__construct($getData, $postData, $url, $method);
         $this->repository = new \Model\ElementRepository();
     }
 
@@ -34,10 +34,10 @@ class ElementsController extends HttpController
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /elements/{id}
-        if(sizeof($this->getData) == 2 && isset($id) && !empty($id))
+        if(preg_match('#^/elements/(\d)*$#', $this->url))
             $d = $this->repository->getElement($id);
         else
-            throw new HttpException(400, 'L\'id n\'est pas indique.');
+            throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
@@ -79,7 +79,7 @@ class ElementsController extends HttpController
     }
 
     /**
-     * url : PUT /elements/{id}
+     * url : PUT /elements/{id} + PUT params
      * @return string
      * @throws HttpException
      */

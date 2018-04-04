@@ -13,9 +13,9 @@ class ListesController extends HttpController
 {
     private $repository;
 
-    public function __construct($getData, $postData, $method)
+    public function __construct($getData, $postData, $url, $method)
     {
-        parent::__construct($getData, $postData, $method);
+        parent::__construct($getData, $postData, $url, $method);
         $this->repository = new \Model\ListeRepository();
     }
 
@@ -41,16 +41,19 @@ class ListesController extends HttpController
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /listes
-        if(sizeof($this->getData) == 1 && isset($this->getData[0]) && !empty($this->getData[0]))
+        if(preg_match('#^/listes$#', $this->url))
             $d = $this->repository->getAllListe();
         // url : GET /listes/{id}
-        elseif(sizeof($this->getData) == 2 && isset($id) && !empty($id))
+        elseif(preg_match('#^/listes/(\d)+$#', $this->url))
             $d = $this->repository->getListe($id);
+        //url : GET /listes/{idListe}/elements
+        elseif(preg_match('#^/listes/(\d)+/elements$#', $this->url))
+            $d = $this->repository->getElements($this->getData[1]);
         //url : GET /listes/all/{idUser}
-        elseif(sizeof($this->getData) == 3 && isset($this->getData[2]) && !empty($this->getData[2]))
+        elseif(preg_match('#^/listes/all/(\d)+$#', $this->url))
             $d = $this->repository->getAllListe($this->getData[2]);
         else
-            throw new HttpException(400,'L\'id n\'est pas bien defini ou n\'est pas fourni.');
+            throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
@@ -96,7 +99,7 @@ class ListesController extends HttpController
     }
 
     /**
-     * url : UPDATE /listes/{id} + POST params
+     * url : UPDATE /listes/{id} + PUT params
      * @return string
      * @throws HttpException
      */

@@ -6,9 +6,9 @@ use Exceptions\HttpException;
 
 class PartagesController extends HttpController
 {
-    public function __construct($getData, $postData, $method)
+    public function __construct($getData, $postData, $url, $method)
     {
-        parent::__construct($getData, $postData, $method);
+        parent::__construct($getData, $postData, $url, $method);
         $this->repository = new \Model\PartageRepository();
     }
 
@@ -35,10 +35,10 @@ class PartagesController extends HttpController
         $idUser= isset($this->getData[1])?$this->getData[1]:null;
         $idListe = isset($this->getData[2])?$this->getData[2]:null;
         //url : GET /partages/{idUser}/{idListe}
-        if(sizeof($this->getData) == 3 && isset($idUser) && !empty($idUser) && isset($idListe) && !empty($idListe))
+        if(preg_match('#^/partages/(\d)+/(\d)+$#', $this->url))
             $d = $this->repository->getPartage($idUser, $idListe);
         else
-            throw new HttpException(400, 'L\'id n\'est pas indique.');
+            throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
@@ -82,7 +82,7 @@ class PartagesController extends HttpController
     }
 
     /**
-     * url PUT /partages/{idUser}/{idListe}
+     * url PUT /partages/{idUser}/{idListe} + PUT params
      * @return string
      * @throws HttpException
      */

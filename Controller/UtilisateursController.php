@@ -6,9 +6,9 @@ use Exceptions\HttpException;
 
 class UtilisateursController extends HttpController
 {
-    public function __construct($getData, $postData, $method)
+    public function __construct($getData, $postData, $url, $method)
     {
-        parent::__construct($getData, $postData, $method);
+        parent::__construct($getData, $postData, $url, $method);
         $this->repository = new \Model\UtilisateurRepository();
     }
 
@@ -33,15 +33,17 @@ class UtilisateursController extends HttpController
     private function get()
     {
         $param = isset($this->getData[1])?$this->getData[1]:null;
-        if(sizeof($this->getData) == 1 && isset($this->getData[0]) && !empty($this->getData[0]))
+        // url : GET /utilisateurs
+        if(preg_match('#^/utilisateurs$#', $this->url))
             $d = $this->repository->getAllUtilisateur();
         // url : GET /utilisateurs/{id|pseudo}
-        elseif(sizeof($this->getData) == 2 && isset($param) && !empty($param))
+        elseif(preg_match('#^/utilisateurs/(.)*$#', $this->url))
                 $d = $this->repository->getUtilisateur($param);
-        elseif(sizeof($this->getData) == 3 && isset($this->getData[1]) && !empty($this->getData[2]))
+        // url : GET /utilisateurs/(.)*/(\d)*
+        elseif(preg_match('#^/utilisateurs/(.)*/(\d)*$#', $this->url))
             $d = $this->repository->getUtilisateurByPseudoPassword($this->getData[1], $this->getData[2]);
         else
-            throw new HttpException(400, 'L\'id n\'est pas indique.');
+            throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;
@@ -83,7 +85,7 @@ class UtilisateursController extends HttpController
     }
 
     /**
-     * url : PUT / utilisateurs/{id}
+     * url : PUT / utilisateurs/{id} + PUT params
      * @return string
      * @throws HttpException
      */

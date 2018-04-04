@@ -9,13 +9,14 @@ abstract class HttpController
     protected $method;
     protected $getData;
     protected $postData;
-    protected $table;
     protected $urlData;
+    protected $url;
 
-    public function __construct ($getData, $postData, $method) {
+    public function __construct ($getData, $postData, $url, $method) {
         $this->method = $method;
         $this->getData = $getData;
         $this->postData = $postData;
+        $this->url = $url;
     }
 
     public function httpResponse($message)
