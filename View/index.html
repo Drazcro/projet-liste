@@ -8,7 +8,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link rel="stylesheet" href="/projet-liste/Utils/global.css">
+    <link rel="stylesheet" href="/Utils/global.css">
 </head>
 
 <body class="grey lighten-4">
@@ -27,7 +27,7 @@
             <a class="waves-effect waves-light black btn-large" href="https://github.com/Drazcro/projet-liste">https://github.com/Drazcro/projet-liste</a>
         </div>
         <h2>Fonctionnement de l'API</h2>
-        Envoyer une requête HTTP à l'adresse <a>https://projet-liste2018.000webhostapp.com/api/v1</a>. L'API est de type
+        Envoyer une requête HTTP à l'adresse <a>http://api-liste.alwaysdata.net/api/v1</a>. L'API est de type
         REST c'est à dire que vous devrez envoyer la la requête avec la bonne méthode :
         <ul class="collection">
             <li class="collection-item"><span class="white-text badge blue">GET</span> Récupérer des information, l'id
@@ -50,13 +50,39 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /utilisateurs
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /utilisateurs/{id}
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /utilisateurs/{pseudo}/{password}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /utilisateurs
+                            </div>
+                            <div class="col s6">
+                                Selectionner tout les utilisateurs
+                            </div>
+                        </li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /utilisateurs/{id}
+                            </div>
+                            <div class="col s6">
+                                Selectionner un utilisateur par id
+                            </div>
+                        </li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /utilisateurs/{pseudo}/{password}
+                            </div>
+                            <div class="col s6">
+                                Selectionner un utilisateur par pseudo et mot de passe (utile pour la connexion)
+                            </div>
                         </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/utilisateurs
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/utilisateurs
+                                    </div>
+                                    <div class="col s6">
+                                        Créer un utilisateur
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -97,7 +123,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/utilisateurs/{id}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/utilisateurs/{id}
+                                    </div>
+                                    <div class="col s6">
+                                        Modifier un utilisateur par id
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -136,7 +168,13 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/utilisateurs/{id}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/utilisateurs/{id}
+                            </div>
+                            <div class="col s6">
+                                Supprimer un utilisateur par id
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -146,12 +184,47 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /listes</li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /listes/{id}</li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /listes/all/{idUser}</li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /listes
+                            </div>
+                            <div class="col s6">
+                                Selectionner toutes les listes
+                            </div>
+                        </li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /listes/{id}
+                            </div>
+                            <div class="col s6">
+                                Selectionner une liste par id
+                            </div>
+                        </li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /listes/all/{idUser}
+                            </div>
+                            <div class="col s6">
+                                Selectionner tout les utilisateurs
+                            </div>
+                        </li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /listes/{idListe}/elements
+                            </div>
+                            <div class="col s6">
+                                Selectionner tout les élements d'une liste par id
+                            </div>
+                        </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/listes
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/listes
+                                    </div>
+                                    <div class="col s6">
+                                        Créer une liste
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -192,7 +265,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/listes/{id}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/listes/{id}
+                                    </div>
+                                    <div class="col s6">
+                                        Modifier une liste
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -231,7 +310,14 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/listes/{id}</li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/listes/{id}
+                            </div>
+                            <div class="col s6">
+                                Supprimer une liste
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -240,10 +326,23 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /etiquettes/{id}</li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /etiquettes/{id}
+                            </div>
+                            <div class="col s6">
+                                Selectionner une etiquette par id
+                            </div>
+                        </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/etiquettes
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/etiquettes
+                                    </div>
+                                    <div class="col s6">
+                                        Créer une étiquette
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -274,7 +373,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/etiquettes/{id}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/etiquettes/{id}
+                                    </div>
+                                    <div class="col s6">
+                                        Mettre à jour une etiquette
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -311,7 +416,13 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/etiquettes/{id}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/etiquettes/{id}
+                            </div>
+                            <div class="col s6">
+                                Supprimer une etiquette
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -321,10 +432,23 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span> /elements/{id}</li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /elements/{id}
+                            </div>
+                            <div class="col s6">
+                                Selectionner un élement par id
+                            </div>
+                        </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/elements
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/elements
+                                    </div>
+                                    <div class="col s6">
+                                        Créer un éléments
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -375,7 +499,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/elements/{id}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/elements/{id}
+                                    </div>
+                                    <div class="col s6">
+                                        Modifier un élément par id
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -424,7 +554,14 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/elements/{id}</li>
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/elements/{id}
+                            </div>
+                            <div class="col s6">
+                                Supprimer un element par id
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -433,12 +570,23 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span>
-                            /posseders/{idListe1}/{idListe2}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /posseders/{idListe1}/{idListe2}
+                            </div>
+                            <div class="col s6">
+                                Selectionner une possession par ids
+                            </div>
                         </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/posseders
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/posseders
+                                    </div>
+                                    <div class="col s6">
+                                        Créer une possession par ids
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -468,7 +616,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/posseders/{idListe1}/{idListe2}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/posseders/{idListe1}/{idListe2}
+                                    </div>
+                                    <div class="col s6">
+                                        Modifier une possession par ids
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -496,7 +650,13 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/posseders/{idListe1}/{idListe2}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/posseders/{idListe1}/{idListe2}
+                            </div>
+                            <div class="col s6">
+                                Supprimer une possession par ids
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -506,12 +666,23 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span>
-                            /identifies/{idElements}/{idEtiquette}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /identifies/{idElements}/{idEtiquette}
+                            </div>
+                            <div class="col s6">
+                                Selectionner une identification par ids
+                            </div>
                         </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/identifies
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/identifies
+                                    </div>
+                                    <div class="col s6">
+                                        Créer une identification
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -541,7 +712,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/identifies/{idElements}/{idEtiquette}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/identifies/{idElements}/{idEtiquette}
+                                    </div>
+                                    <div class="col s6">
+                                        Modifier une identification par id
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -569,7 +746,13 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/identifies/{idElements}/{idEtiquette}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/identifies/{idElements}/{idEtiquette}
+                            </div>
+                            <div class="col s6">
+                                Supprimer une identification par id
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -579,12 +762,23 @@
                 <div class="collapsible-body grey lighten-3">
                     <ul class="collection with-header">
                         <li class="collection-header"><h4>Interactions possibles</h4></li>
-                        <li class="collection-item"><span class="white-text badge blue">GET</span>
-                            /partages/{idUser}/{idListe}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge blue">GET</span> /partages/{idUser}/{idListe}
+                            </div>
+                            <div class="col s6">
+                                Selectionner un partage par ids
+                            </div>
                         </li>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge yellow">POST</span>/partages
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge yellow">POST</span>/partages
+                                    </div>
+                                    <div class="col s6">
+                                        Créer une identification
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -619,7 +813,13 @@
                         </ul>
                         <ul class="collapsible in-collapsible">
                             <li>
-                                <div class="collapsible-header"><span class="white-text badge green">PUT</span>/partages/{idUser}/{idListe}
+                                <div class="collapsible-header row">
+                                    <div class="col s6">
+                                        <span class="white-text badge green">PUT</span>/partages/{idUser}/{idListe}
+                                    </div>
+                                    <div class="col s6">
+                                        Modifier un partage par id
+                                    </div>
                                 </div>
                                 <div class="collapsible-body grey lighten-2">
                                     <span class="black-text badge white">PARAMS</span>
@@ -652,7 +852,13 @@
                                 </div>
                             </li>
                         </ul>
-                        <li class="collection-item"><span class="white-text badge red">DELETE</span>/partages/{idUser}/{idListe}
+                        <li class="collection-item row">
+                            <div class="col s6">
+                                <span class="white-text badge red">DELETE</span>/partages/{idUser}/{idListe}
+                            </div>
+                            <div class="col s6">
+                              Supprimer un partage par ids
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -662,7 +868,7 @@
 </main>
 <!--JavaScript at end of body for optimized loading-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="/projet-liste/Utils/materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="/Utils/materialize/js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.collapsible').collapsible();
