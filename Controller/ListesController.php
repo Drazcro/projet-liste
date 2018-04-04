@@ -41,13 +41,16 @@ class ListesController extends HttpController
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /listes
-        if(sizeof($this->getData) == 1)
-            $d = true;
+        if(sizeof($this->getData) == 1 && isset($this->getData[0]) && !empty($this->getData[0]))
+            $d = $this->repository->getAllListe();
         // url : GET /listes/{id}
         elseif(sizeof($this->getData) == 2 && isset($id) && !empty($id))
             $d = $this->repository->getListe($id);
+        //url : GET /listes/all/{idUser}
+        elseif(sizeof($this->getData) == 3 && isset($this->getData[2]) && !empty($this->getData[2]))
+            $d = $this->repository->getAllListe($this->getData[2]);
         else
-            throw new HttpException(400,'L\'id n\'est pas bien défini ou n\'est pas fourni.');
+            throw new HttpException(400,'L\'id n\'est pas bien defini ou n\'est pas fourni.');
         if($d == false)
             throw new HttpException(404, 'Aucune ligne selectionnee.');
         return $d;

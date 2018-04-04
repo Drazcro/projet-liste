@@ -1,0 +1,86 @@
+[GET] Utilisateurs : utilisateurs->79  
+[POST] Utilisateurs : utilisateurs cedric->1234->1->1 
+[POST] Listes : listes ma liste->une description->1->108 
+[POST] Elements : elements 2018-04-03 18:24:42->2018-04-03 18:24:42->un element->un super element->1->99 
+[POST] Etiquettes : etiquettes mon tag->108 
+[POST] Identifies : identifies 29->29 
+[POST] Partages : partages 108->99->1 
+[POST] Posseders : posseders 99->99 
+[GET] Utilisateurs : utilisateurs->108  
+[GET] Utilisateurs : utilisateurs->cedric  
+[GET] Utilisateurs : utilisateurs->cedric->1234  
+[GET] Listes : listes->99  
+[GET] Listes : listes  
+[GET] Listes : listes->all->108  
+[GET] Elements : elements->29  
+[GET] Etiquettes : etiquettes->29  
+[GET] Identifies : identifies->29->29  
+[GET] Partages : partages->108->99  
+[GET] Posseders : posseders->99->99  
+[PUT] Utilisateurs : utilisateurs->108 cedric->12534->1->1 
+[PUT] Listes : listes->99 108->ma liste 2->une description 2->1 
+[PUT] Elements : elements->29 2018-04-03 18:25:00->2018-04-03 18:25:00->nouveau titre->une nouvelle description->1->99 
+[PUT] Etiquettes : etiquettes->{id} 108->new tag->29 
+[PUT] Identifies : identifies->29->29 29->29 
+[PUT] Partages : partages->108->99 108->99->0 
+[PUT] Posseders : posseders->99->99 108->99 
+[DELETE] Posseders : posseders->99->99  
+[DELETE] Partages : partages->108->99  
+[DELETE] Identifies : identifies->29->29  
+[DELETE] Etiquettes : etiquettes->29  
+[DELETE] Elements : elements->29  
+[DELETE] Listes : listes->99  
+[DELETE] Utilisateurs : utilisateurs->108  
+[POST] Utilisateurs : utilisateurs cedric->1234->1->1 
+[POST] Listes : listes ma liste->une description->1->109 
+[POST] Elements : elements 2018-04-03 18:34:23->2018-04-03 18:34:23->un element->un super element->1->100 
+[POST] Etiquettes : etiquettes mon tag->109 
+[POST] Identifies : identifies 30->30 
+[POST] Partages : partages 109->100->1 
+[POST] Posseders : posseders 100->100 
+[GET] Utilisateurs : utilisateurs->109  
+[GET] Utilisateurs : utilisateurs->cedric  
+[GET] Utilisateurs : utilisateurs  
+[GET] Utilisateurs : utilisateurs->cedric->1234  
+[GET] Listes : listes->100  
+[GET] Listes : listes  
+[GET] Listes : listes->all->109  
+[GET] Elements : elements->30  
+[GET] Etiquettes : etiquettes->30  
+[GET] Identifies : identifies->30->30  
+[GET] Partages : partages->109->100  
+[GET] Posseders : posseders->100->100  
+[PUT] Utilisateurs : utilisateurs->109 cedric->12534->1->1 
+[PUT] Listes : listes->100 109->ma liste 2->une description 2->1 
+[PUT] Elements : elements->30 2018-04-03 18:34:35->2018-04-03 18:34:35->nouveau titre->une nouvelle description->1->100 
+[PUT] Etiquettes : etiquettes->{id} 109->new tag->30 
+[PUT] Identifies : identifies->30->30 30->30 
+[PUT] Partages : partages->109->100 109->100->0 
+[PUT] Posseders : posseders->100->100 109->100 
+[DELETE] Posseders : posseders->100->100  
+[DELETE] Partages : partages->109->100  
+[DELETE] Identifies : identifies->30->30  
+[DELETE] Etiquettes : etiquettes->30  
+[DELETE] Elements : elements->30  
+[DELETE] Listes : listes->100  
+[DELETE] Utilisateurs : utilisateurs->109  
+[GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+2018-04-03 18:43:51.000000 [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+2018-04-03 18:46:59.000000 [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+ [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+ [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+2018-04-03 18:57:55.000000 [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+2018-04-03 19:00:13.000000 [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+ [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+04/03/18 19:04:24 [GET] Utilisateurs : GET : utilisateurs->79 | POST :  
+04/04/18 10:04:28 [GET] | table : Utilisateurs | GET : utilisateurs+79 | POST : Array 
+04/04/18 10:04:58 [GET] | table : Utilisateurs | GET : utilisateurs+79 | POST : Array 
+04/04/18 10:04:58 [GET] | table : Utilisateurs | GET : utilisateurs+79 | POST : Array 
+04/04/18 10:04:33 [GET] | table : Utilisateurs | GET : utilisateurs+79 | POST : Array 
+04/04/18 10:04:19 [GET] | table : Utilisateurs | GET : utilisateurs+79 | POST :  
+04/04/18 10:04:24 [GET] | table :  | GET :  | POST :  
+04/04/18 10:04:09 [GET] | table :  | GET :  | POST :  
+04/04/18 10:04:13 [GET] | table :  | GET :  | POST :  
+04/04/18 10:04:20 [GET] | table : Utilisateurs | GET : utilisateurs | POST : Array 
+04/04/18 10:04:36 [GET] | table : Utilisateurs | GET : utilisateurs | POST :  
+04/04/18 10:04:54 [GET] | table :  | GET :  | POST :  

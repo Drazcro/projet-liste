@@ -4,18 +4,54 @@ namespace Model;
 
 class UtilisateurRepository extends Repository
 {
-    public function getUtilisateur($id)
+    public function getUtilisateur($param)
     {
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM utilisateur WHERE idUser = :id');
-            $stmt->bindParam(':id', $id);
+            if(is_numeric($param))
+                $stmt = $this->pdo->prepare('SELECT * FROM utilisateur WHERE idUser = :param');
+            else
+                $stmt = $this->pdo->prepare('SELECT * FROM utilisateur WHERE pseudo = :param');
+            $stmt->bindParam(':param', $param);
             $stmt->execute();
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
+        }
+    }
+
+    public function getAllUtilisateur()
+    {
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM utilisateur');
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();*/
+            return false;
+        }
+    }
+
+    public function getUtilisateurByPseudoPassword($pseudo, $password) {
+        try {
+            $password = hash('sha512',$password);
+            $stmt = $this->pdo->prepare('SELECT * FROM utilisateur WHERE pseudo = :pseudo AND password = :password');
+            $stmt->bindParam(':pseudo', $pseudo);
+            $stmt->bindParam(':password', $password);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+           /* $ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -31,9 +67,10 @@ class UtilisateurRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -50,9 +87,10 @@ class UtilisateurRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -64,9 +102,10 @@ class UtilisateurRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 }

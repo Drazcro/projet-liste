@@ -32,10 +32,14 @@ class UtilisateursController extends HttpController
      */
     private function get()
     {
-        $id = isset($this->getData[1])?$this->getData[1]:null;
-        // url : GET /utilisateurs/{id}
-        if(sizeof($this->getData) == 2 && isset($id) && !empty($id))
-            $d = $this->repository->getUtilisateur($id);
+        $param = isset($this->getData[1])?$this->getData[1]:null;
+        if(sizeof($this->getData) == 1 && isset($this->getData[0]) && !empty($this->getData[0]))
+            $d = $this->repository->getAllUtilisateur();
+        // url : GET /utilisateurs/{id|pseudo}
+        elseif(sizeof($this->getData) == 2 && isset($param) && !empty($param))
+                $d = $this->repository->getUtilisateur($param);
+        elseif(sizeof($this->getData) == 3 && isset($this->getData[1]) && !empty($this->getData[2]))
+            $d = $this->repository->getUtilisateurByPseudoPassword($this->getData[1], $this->getData[2]);
         else
             throw new HttpException(400, 'L\'id n\'est pas indique.');
         if($d == false)
@@ -96,3 +100,5 @@ class UtilisateursController extends HttpController
             return "La mise a jour reussie.";
     }
 }
+
+//curl -X POST --data "pseudo=rrrrzzz&password=rr&permission=1&role=1" "https://projet-liste2018.000webhostapp.com/api/v1/utilisateurs"

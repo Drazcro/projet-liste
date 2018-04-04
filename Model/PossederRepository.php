@@ -10,7 +10,7 @@ class PossederRepository extends Repository
         $stmt->bindParam(':id1', $idListe1);
         $stmt->bindParam(':id2', $idListe2);
         $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function createPosseder($idliste1, $idliste2) {
@@ -23,9 +23,10 @@ class PossederRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            return false;
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
         }
     }
 
@@ -40,7 +41,6 @@ class PossederRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            var_dump($e->getMessage());
             return false;
         }
     }
@@ -54,9 +54,10 @@ class PossederRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            return false;
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
         }
     }
 }

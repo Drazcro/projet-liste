@@ -201,6 +201,44 @@ class ApiTest extends TestCase
         curl_close($ch);
         $res = json_decode($res);
         $this->assertEquals(true, $res->status);
+
+        $ch = curl_init();
+        $url = URL_test."/utilisateurs/cedric";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
+    public function testAllUtilisateur()
+    {
+        $this->setIdUser();
+        $ch = curl_init();
+        $url = URL_test."/utilisateurs";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
+    public function testConnectionUtilisateur()
+    {
+        $this->setIdUser();
+        $ch = curl_init();
+        $url = URL_test."/utilisateurs/cedric/1234";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
     }
 
     public function testGetListe()
@@ -209,6 +247,32 @@ class ApiTest extends TestCase
         $this->setIdListe();
         $ch = curl_init();
         $url = URL_test."/listes/$this->idListe";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
+    public function testGetAllListe()
+    {
+        $this->setIdUser();
+        $this->setIdListe();
+
+        $ch = curl_init();
+        $url = URL_test."/listes";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+
+        $ch = curl_init();
+        $url = URL_test."/listes/all/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

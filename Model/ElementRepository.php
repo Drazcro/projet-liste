@@ -10,12 +10,13 @@ class ElementRepository extends Repository
             $stmt = $this->pdo->prepare('SELECT * FROM element WHERE idelements = :id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -33,9 +34,10 @@ class ElementRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -53,9 +55,10 @@ class ElementRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -67,9 +70,10 @@ class ElementRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 }

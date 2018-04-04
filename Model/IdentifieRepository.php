@@ -11,12 +11,13 @@ class IdentifieRepository extends Repository
             $stmt->bindParam(':element_idElements', $element_idElements);
             $stmt->bindParam(':etiquette_idEtiquette', $etiquette_idEtiquette);
             $stmt->execute();
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -30,9 +31,10 @@ class IdentifieRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -49,9 +51,10 @@ class IdentifieRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -64,9 +67,10 @@ class IdentifieRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 }

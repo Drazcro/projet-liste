@@ -15,12 +15,33 @@ class ListeRepository extends Repository
             $stmt = $this->pdo->prepare('SELECT * FROM liste WHERE idliste = :id');
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-           $ec = new \Exceptions\DatabaseException($e->getCode());
+           /*$ec = new \Exceptions\DatabaseException($e->getCode());
            $ec->configurateDatabaseMessage();
-           $ec->setResponse();
+           $ec->setResponse();*/
+            return false;
+        }
+    }
+
+    public function getAllListe($idUser=null) {
+        try {
+            if(isset($idUser)) {
+                $stmt = $this->pdo->prepare('SELECT * FROM liste WHERE idUSer = :id OR visibility = 1');
+                $stmt->bindParam(':id', $idUser);
+            }
+            else
+                $stmt = $this->pdo->prepare('SELECT * FROM liste');
+
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
+            $ec->configurateDatabaseMessage();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -35,9 +56,10 @@ class ListeRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /**$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -49,9 +71,10 @@ class ListeRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 
@@ -67,9 +90,10 @@ class ListeRepository extends Repository
             return true;
         }
         catch(\Exception $e) {
-            $ec = new \Exceptions\DatabaseException($e->getCode());
+            /*$ec = new \Exceptions\DatabaseException($e->getCode());
             $ec->configurateDatabaseMessage();
-            $ec->setResponse();
+            $ec->setResponse();*/
+            return false;
         }
     }
 }

@@ -12,6 +12,7 @@ class Router
     private $postData;
     private $method;
     private $table;
+    private $looger;
 
     public function __construct()
     {
@@ -20,10 +21,12 @@ class Router
                 parse_str(file_get_contents('php://input'), $_REQUEST);
             $this->setData();
             $this->table = ucfirst(strtolower($this->getData[0]));
+            $this->logger = new \Log\Logger();
     }
 
     public function root()
     {
+        $this->logger->log($this->method, $this->table, $this->getData, $this->postData);
         try {
             if(empty($this->table))
                 $this->table='Page';
