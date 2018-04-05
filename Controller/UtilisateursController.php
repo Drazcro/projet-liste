@@ -12,25 +12,12 @@ class UtilisateursController extends HttpController
         $this->repository = new \Model\UtilisateurRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * min url : GET /utilisateurs
      * @return mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         $param = isset($this->getData[1])?$this->getData[1]:null;
         // url : GET /utilisateurs
@@ -54,7 +41,7 @@ class UtilisateursController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
         if(isset($this->postData['pseudo']) && isset($this->postData['password']) && isset($this->postData['permission']) && isset($this->postData['role']))
             $d = $this->repository->createUtilisateur($this->postData['pseudo'], $this->postData['password'], $this->postData['permission'], $this->postData['role']);
@@ -71,7 +58,7 @@ class UtilisateursController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         if( isset($id) && !empty($id))
@@ -89,7 +76,7 @@ class UtilisateursController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($this->postData['pseudo']) && isset($this->postData['password']) && isset($this->postData['permission']) && isset($this->postData['role']) && isset($id) && !empty($id))
@@ -102,5 +89,3 @@ class UtilisateursController extends HttpController
             return "La mise a jour reussie.";
     }
 }
-
-//curl -X POST --data "pseudo=rrrrzzz&password=rr&permission=1&role=1" "https://projet-liste2018.000webhostapp.com/api/v1/utilisateurs"

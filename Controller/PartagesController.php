@@ -12,25 +12,12 @@ class PartagesController extends HttpController
         $this->repository = new \Model\PartageRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * min url : GET /partages
      * @return mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         $idUser= isset($this->getData[1])?$this->getData[1]:null;
         $idListe = isset($this->getData[2])?$this->getData[2]:null;
@@ -49,7 +36,7 @@ class PartagesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
 
         if(isset($this->postData['utilisateur_idUser']) && isset($this->postData['liste_idliste']) && isset($this->postData['autorisation']))
@@ -67,7 +54,7 @@ class PartagesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $idUser= isset($this->getData[1])?$this->getData[1]:null;
         $idListe = isset($this->getData[2])?$this->getData[2]:null;
@@ -86,7 +73,7 @@ class PartagesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $idUser= isset($this->getData[1])?$this->getData[1]:null;
         $idListe = isset($this->getData[2])?$this->getData[2]:null;

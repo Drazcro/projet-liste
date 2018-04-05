@@ -19,25 +19,12 @@ class ListesController extends HttpController
         $this->repository = new \Model\ListeRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * min url : GET /listes
      * @return bool|mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /listes
@@ -64,7 +51,7 @@ class ListesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
         if(isset($this->postData['idUser'])
             && isset($this->postData['description'])
@@ -85,7 +72,7 @@ class ListesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $id = $this->getData[1];
         if(isset($id) && !empty($id))
@@ -103,7 +90,7 @@ class ListesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $id = $this->getData[1];
         if(isset($this->postData['idUser']) && isset($this->postData['title']) && isset($this->postData['description']) && isset($this->postData['visibility']) && isset($id) && !empty($id))

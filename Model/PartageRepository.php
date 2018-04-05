@@ -4,6 +4,12 @@ namespace Model;
 
 class PartageRepository extends Repository
 {
+    /**
+     * Récupère un partage
+     * @param $utilisateur_idUser
+     * @param $liste_idListe
+     * @return array|bool
+     */
     public function getPartage($utilisateur_idUser, $liste_idListe)
     {
         try {
@@ -14,13 +20,17 @@ class PartageRepository extends Repository
             return  $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Créé un partage
+     * @param $utilisateur_idUser
+     * @param $liste_idliste
+     * @param $autorisation
+     * @return bool
+     */
     public function createPartage($utilisateur_idUser, $liste_idliste, $autorisation) {
         try {
             $this->stmt = $this->pdo->prepare('INSERT INTO partage (utilisateur_idUser, liste_idliste, autorisation) VALUES (:utilisateur_idUser, :liste_idliste, :autorisation)');
@@ -31,13 +41,19 @@ class PartageRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-           /* $ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Met à jour un partage
+     * @param $utilisateur_idUser
+     * @param $liste_idliste
+     * @param $autorisation
+     * @param $newIdUser
+     * @param $newIdListe
+     * @return bool
+     */
     public function updatePartage($utilisateur_idUser, $liste_idliste, $autorisation, $newIdUser, $newIdListe) {
         try {
             $this->stmt = $this->pdo->prepare('UPDATE partage SET utilisateur_idUser=:utilisateur_idUser, liste_idliste=:liste_idliste, autorisation=:autorisation WHERE utilisateur_idUser = :utilisateur_idUser2 AND liste_idliste=:liste_idliste2');
@@ -50,13 +66,16 @@ class PartageRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Supprime un partage
+     * @param $utilisateur_idUser
+     * @param $liste_idliste
+     * @return bool
+     */
     public function deletePartage($utilisateur_idUser, $liste_idliste) {
         try {
             $this->stmt = $this->pdo->prepare('DELETE FROM partage WHERE utilisateur_idUser = :utilisateur_idUser AND liste_idliste= :liste_idliste');
@@ -66,9 +85,6 @@ class PartageRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }

@@ -12,25 +12,12 @@ class ElementsController extends HttpController
         $this->repository = new \Model\ElementRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * Min url : GET /elements
      * @return mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         //url : GET /elements/{id}
@@ -48,7 +35,7 @@ class ElementsController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
         if(isset($this->postData['date_creation']) && isset($this->postData['date_modif']) && isset($this->postData['titre']) && isset($this->postData['description']) && isset($this->postData['statut']) && isset($this->postData['idListe']))
             $d = $this->repository->createElement($this->postData['date_creation'], $this->postData['date_modif'], $this->postData['titre'], $this->postData['description'], $this->postData['statut'], $this->postData['idListe']);
@@ -65,7 +52,7 @@ class ElementsController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($id) && !empty($id))
@@ -83,7 +70,7 @@ class ElementsController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($this->postData['date_creation']) && isset($this->postData['date_modif']) && isset($this->postData['titre']) && isset($this->postData['description']) && isset($this->postData['statut']) && isset($this->postData['idListe']) && isset($id) && !empty($id))

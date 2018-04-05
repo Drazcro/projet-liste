@@ -4,6 +4,11 @@ namespace Model;
 
 class ElementRepository extends Repository
 {
+    /**
+     * Récupère un élément par id
+     * @param $id
+     * @return array|bool
+     */
     public function getElement($id)
     {
         try {
@@ -13,13 +18,20 @@ class ElementRepository extends Repository
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Créé un élement
+     * @param $date_creation
+     * @param $date_modif
+     * @param $titre
+     * @param $description
+     * @param $statut
+     * @param $idListe
+     * @return bool
+     */
     public function createElement($date_creation, $date_modif, $titre, $description, $statut, $idListe) {
         try {
             $this->stmt = $this->pdo->prepare('INSERT INTO element (date_creation, date_modif, titre, description, statut, idListe) VALUES (:date_creation, :date_modif, :titre, :description, :statut, :idListe)');
@@ -34,13 +46,21 @@ class ElementRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Met à jour un élément
+     * @param $date_creation
+     * @param $date_modif
+     * @param $titre
+     * @param $description
+     * @param $statut
+     * @param $idListe
+     * @param $idElement
+     * @return bool
+     */
     public function updateElement($date_creation, $date_modif, $titre, $description, $statut, $idListe, $idElement) {
         try {
             $this->stmt = $this->pdo->prepare('UPDATE element SET date_creation=:date_creation, date_modif=:date_modif, titre=:titre, description=:description, statut=:statut, idListe=:idListe  WHERE idelements = :idElement');
@@ -55,13 +75,15 @@ class ElementRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Supprime un élément
+     * @param $id
+     * @return bool
+     */
     public function deleteElement($id) {
         try {
             $this->stmt = $this->pdo->prepare('DELETE FROM element WHERE idelements=:id');
@@ -70,9 +92,6 @@ class ElementRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }

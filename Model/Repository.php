@@ -16,8 +16,11 @@ class Repository
         $this->stmt = null;
     }
 
+    /**
+     * Teste le succès d'une mise à jour / insertion / suppression -> au moins 1 ligne affectée
+     * @return bool
+     */
     protected function testSuccess() {
-
         if($this->stmt->rowCount() > 0)
             return true;
         return false;

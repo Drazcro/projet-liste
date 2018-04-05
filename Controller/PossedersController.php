@@ -12,25 +12,12 @@ class PossedersController extends HttpController
         $this->repository = new \Model\PossederRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * min url : GET /posseders
      * @return mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
         $idListe2 = isset($this->getData[2])?$this->getData[2]:null;
@@ -49,7 +36,7 @@ class PossedersController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
         if(isset($this->postData['idListe1']) && isset($this->postData['idListe2']))
             $d = $this->repository->createPosseder($this->postData['idListe1'], $this->postData['idListe2']);
@@ -66,7 +53,7 @@ class PossedersController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
         $idListe2 = isset($this->getData[2])?$this->getData[2]:null;
@@ -85,7 +72,7 @@ class PossedersController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $idListe1 = isset($this->getData[1])?$this->getData[1]:null;
         $idListe2 = isset($this->getData[2])?$this->getData[2]:null;

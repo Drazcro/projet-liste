@@ -4,6 +4,12 @@ namespace Model;
 
 class IdentifieRepository extends Repository
 {
+    /**
+     * Récupère une identification
+     * @param $element_idElements
+     * @param $etiquette_idEtiquette
+     * @return array|bool
+     */
     public function getIdentifie($element_idElements, $etiquette_idEtiquette)
     {
         try {
@@ -14,13 +20,16 @@ class IdentifieRepository extends Repository
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Créé une identification
+     * @param $element_idElements
+     * @param $etiquette_idEtiquette
+     * @return bool
+     */
     public function createIdentifie($element_idElements, $etiquette_idEtiquette) {
         try {
             $this->stmt = $this->pdo->prepare('INSERT INTO identifie (element_idelements, etiquette_idetiquette) VALUES (:element_idElements, :etiquette_idEtiquette)');
@@ -30,15 +39,18 @@ class IdentifieRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
-
-
+    /**
+     * Met à jour une identification
+     * @param $element_idElements
+     * @param $etiquette_idEtiquette
+     * @param $newIdElements
+     * @param $newIdEtiquette
+     * @return bool
+     */
     public function updateIdentifie($element_idElements, $etiquette_idEtiquette, $newIdElements, $newIdEtiquette) {
         try {
             $this->stmt = $this->pdo->prepare('UPDATE identifie SET element_idelements=:element_idElements, etiquette_idetiquette=:etiquette_idEtiquette WHERE element_idelements = :element_idElements2 AND etiquette_idetiquette = :etiquette_idEtiquette2');
@@ -50,13 +62,16 @@ class IdentifieRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Supprime une identification
+     * @param $element_idElements
+     * @param $etiquette_idEtiquette
+     * @return bool
+     */
     public function deleteIdentifie($element_idElements, $etiquette_idEtiquette) {
         try {
             $this->stmt = $this->pdo->prepare('DELETE FROM identifie WHERE element_idelements = :element_idElements AND etiquette_idEtiquette = :etiquette_idEtiquette');
@@ -66,9 +81,6 @@ class IdentifieRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }

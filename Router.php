@@ -17,14 +17,17 @@ class Router
 
     public function __construct()
     {
-            $this->method = $_SERVER['REQUEST_METHOD'];
-            if ('PUT' == $this->method || 'DELETE' == $this->method)
+        $this->logger = new \Log\Logger();
+        $this->method = $_SERVER['REQUEST_METHOD'];
+        if ('PUT' == $this->method || 'DELETE' == $this->method)
                 parse_str(file_get_contents('php://input'), $_REQUEST);
-            $this->setData();
-            $this->table = ucfirst(strtolower($this->getData[0]));
-            $this->logger = new \Log\Logger();
+        $this->setData();
+        $this->table = ucfirst(strtolower($this->getData[0]));
     }
 
+    /**
+     * Route la requete vers le bon controlleur
+     */
     public function root()
     {
         $this->logger->log($this->method, $this->table, $this->getData, $this->postData);
@@ -43,11 +46,14 @@ class Router
         }
     }
 
+    /**
+     * Prépare les données de la requête pour les controlleurs
+     */
     private function setData() {
         if(isset($_SERVER['PATH_INFO'])) {
             $url = explode('/', $_SERVER['PATH_INFO']);
-            $this->getData = array_splice($url, 1);
             $this->url = $_SERVER['PATH_INFO'];
+            $this->getData = array_splice($url, 1);
         }
         //Adapatation alwaysdata
         elseif(isset($_SERVER['ORIG_PATH_INFO'])) {

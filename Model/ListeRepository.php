@@ -9,6 +9,11 @@ namespace Model;
  */
 class ListeRepository extends Repository
 {
+    /**
+     * Récupère une liste par id
+     * @param $id
+     * @return array|bool
+     */
     public function getListe($id)
     {
         try {
@@ -19,13 +24,15 @@ class ListeRepository extends Repository
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-           /*$ec = new \Exceptions\DatabaseException($e->getCode());
-           $ec->configurateDatabaseMessage();
-           $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Récupère toute les listes ou celles associés à un id d'utilisateur et celles ouvertes
+     * @param null $idUser
+     * @return array|bool
+     */
     public function getAllListe($idUser=null) {
         try {
             if(isset($idUser)) {
@@ -38,13 +45,15 @@ class ListeRepository extends Repository
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Récupère les élements associés à une liste
+     * @param $idListe
+     * @return array|bool
+     */
     public function getElements($idListe) {
         try {
             $this->stmt = $this->pdo->prepare('SELECT * FROM element WHERE idListe = :id');
@@ -53,13 +62,18 @@ class ListeRepository extends Repository
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Créé une liste
+     * @param $id
+     * @param $description
+     * @param $visibility
+     * @param $title
+     * @return bool
+     */
     public function createListe($id, $description, $visibility, $title) {
         try {
             $this->stmt = $this->pdo->prepare('INSERT INTO liste (title, description, visibility, idUser) VALUES (:title, :description, :visibility, :idUser)');
@@ -71,13 +85,15 @@ class ListeRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /**$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Supprime une liste
+     * @param $id
+     * @return bool
+     */
     public function deleteListe($id) {
         try {
             $this->stmt = $this->pdo->prepare('DELETE FROM liste WHERE idListe=:id');
@@ -86,13 +102,19 @@ class ListeRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Met à jour une liste
+     * @param $idUser
+     * @param $title
+     * @param $description
+     * @param $visibility
+     * @param $idListe
+     * @return bool
+     */
     public function updateListe($idUser, $title, $description, $visibility, $idListe) {
         try {
             $this->stmt = $this->pdo->prepare('UPDATE liste SET title=:title, description=:description, visibility=:visibility, idUser=:idUser WHERE idListe = :idListe');
@@ -106,9 +128,6 @@ class ListeRepository extends Repository
         }
         catch(\Exception $e) {
             $e->getMessage();
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }

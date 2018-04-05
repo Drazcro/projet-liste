@@ -12,25 +12,12 @@ class EtiquettesController extends HttpController
         $this->repository = new \Model\EtiquetteRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * min url : GET /etiquettes
      * @return mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         // url : GET /etiquettes/{id}
@@ -48,7 +35,7 @@ class EtiquettesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
         if(isset($this->postData['tag']) && isset($this->postData['idUser']))
             $d = $this->repository->createEtiquette($this->postData['tag'], $this->postData['idUser']);
@@ -63,7 +50,7 @@ class EtiquettesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($id) && !empty($id))
@@ -81,7 +68,7 @@ class EtiquettesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $id = isset($this->getData[1])?$this->getData[1]:null;
         if(isset($this->postData['tag']) && isset($this->postData['idUser']) && isset($id) && !empty($id))

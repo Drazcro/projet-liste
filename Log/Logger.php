@@ -4,6 +4,13 @@ namespace Log;
 
 Class Logger
 {
+    /**
+     * Log des infos de la requête
+     * @param $method
+     * @param $table
+     * @param $getData
+     * @param $postData
+     */
     public function log($method, $table, $getData, $postData) {
 
         if(isset($getData) && !empty($getData))

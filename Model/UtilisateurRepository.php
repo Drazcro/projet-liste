@@ -4,6 +4,11 @@ namespace Model;
 
 class UtilisateurRepository extends Repository
 {
+    /**
+     * Récupère un utilisateur par id ou pseudo
+     * @param $param
+     * @return array|bool
+     */
     public function getUtilisateur($param)
     {
         try {
@@ -16,13 +21,14 @@ class UtilisateurRepository extends Repository
             return  $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Récupère tout les utilisateurs
+     * @return array|bool
+     */
     public function getAllUtilisateur()
     {
         try {
@@ -31,13 +37,16 @@ class UtilisateurRepository extends Repository
             return  $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Récupère un utilisateur par pseudo et password
+     * @param $pseudo
+     * @param $password
+     * @return array|bool
+     */
     public function getUtilisateurByPseudoPassword($pseudo, $password) {
         try {
             $password = hash('sha512',$password);
@@ -48,13 +57,18 @@ class UtilisateurRepository extends Repository
             return  $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-           /* $ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Créé un utilisateur
+     * @param $pseudo
+     * @param $password
+     * @param $permission
+     * @param $role
+     * @return bool
+     */
     public function createUtilisateur($pseudo, $password, $permission, $role) {
         try {
             $password = hash('sha512',$password);
@@ -67,13 +81,19 @@ class UtilisateurRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Met à jour un utilisateur
+     * @param $pseudo
+     * @param $password
+     * @param $permission
+     * @param $role
+     * @param $idUser
+     * @return bool
+     */
     public function updateUtilisateur($pseudo, $password, $permission, $role, $idUser) {
         try {
             $password = hash('sha512',$password);
@@ -87,13 +107,15 @@ class UtilisateurRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }
 
+    /**
+     * Supprime un utilisateur
+     * @param $id
+     * @return bool
+     */
     public function deleteUtilisateur($id) {
         try {
             $this->stmt = $this->pdo->prepare('DELETE FROM utilisateur WHERE idUser=:id');
@@ -102,9 +124,6 @@ class UtilisateurRepository extends Repository
             return $this->testSuccess();
         }
         catch(\Exception $e) {
-            /*$ec = new \Exceptions\DatabaseException($e->getCode());
-            $ec->configurateDatabaseMessage();
-            $ec->setResponse();*/
             return false;
         }
     }

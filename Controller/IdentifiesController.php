@@ -12,25 +12,12 @@ class IdentifiesController extends HttpController
         $this->repository = new \Model\IdentifieRepository();
     }
 
-    public function action()
-    {
-        if($this->method == 'GET')
-            $d=$this->get();
-        elseif ($this->method == 'POST')
-            $d=$this->post();
-        elseif ($this->method == 'DELETE')
-            $d=$this->delete();
-        elseif ($this->method == 'PUT')
-            $d=$this->put();
-        $this->httpResponse($d);
-    }
-
     /**
      * min url : GET /identifies
      * @return mixed
      * @throws HttpException
      */
-    private function get()
+    public function get()
     {
         //url : GET /identifies/{idElements}/{idEtiquette}
         $idElements = isset($this->getData[1])?$this->getData[1]:null;
@@ -49,7 +36,7 @@ class IdentifiesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function post()
+    public function post()
     {
         if(isset($this->postData['element_idElements']) && isset($this->postData['etiquette_idEtiquette']))
             $d = $this->repository->createIdentifie($this->postData['element_idElements'], $this->postData['etiquette_idEtiquette']);
@@ -66,7 +53,7 @@ class IdentifiesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function delete()
+    public function delete()
     {
         $idElements = isset($this->getData[1])?$this->getData[1]:null;
         $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
@@ -85,7 +72,7 @@ class IdentifiesController extends HttpController
      * @return string
      * @throws HttpException
      */
-    private function put()
+    public function put()
     {
         $idElements = isset($this->getData[1])?$this->getData[1]:null;
         $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
