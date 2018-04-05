@@ -33,6 +33,9 @@ class ListesController extends HttpController
         // url : GET /listes/{id}
         elseif(preg_match('#^/listes/(\d)+$#', $this->url))
             $d = $this->repository->getListe($id);
+        // url : GET /listes/public
+        elseif(preg_match('#^/listes/public$#', $this->url))
+            $d = $this->repository->getPublicListe();
         //url : GET /listes/{idListe}/elements
         elseif(preg_match('#^/listes/(\d)+/elements$#', $this->url))
             $d = $this->repository->getElements($this->getData[1]);

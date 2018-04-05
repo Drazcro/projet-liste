@@ -7,4 +7,11 @@ require_once (__DIR__."/Router.php");
 
 $r = new Router();
 
-$r->root();
+try {
+    $r->root();
+}
+catch(\Exception $e) {
+    $he = new \Exceptions\HttpException('500', 'Une erreur inatendue est survenue. Veuillez réessayer.');
+    $he->setResponse();
+}
+

@@ -25,6 +25,25 @@ class IdentifieRepository extends Repository
     }
 
     /**
+     * Récupère les étiquettes d'une éléments par id
+     * @param $id
+     */
+    public function getEtiquette($id)
+    {
+       // var_dump($id);
+        try {
+            $this->stmt = $this->pdo->prepare('SELECT et.* FROM etiquette et, identifie i WHERE i.etiquette_idetiquette = et.idetiquette AND i.element_idelements = :id');
+            $this->stmt->bindParam(':id', $id);
+            $this->stmt->execute();
+            return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            var_dump($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Créé une identification
      * @param $element_idElements
      * @param $etiquette_idEtiquette

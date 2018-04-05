@@ -26,7 +26,7 @@ class EtiquettesController extends HttpController
         else
             throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
-            throw new HttpException(404, 'Aucune ligne selectionnee.');
+            throw new HttpException(404, 'Aucune ligne selectionnee. ');
         return $d;
     }
 

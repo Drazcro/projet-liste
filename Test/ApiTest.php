@@ -256,6 +256,21 @@ class ApiTest extends TestCase
         $this->assertEquals(true, $res->status);
     }
 
+    public function testPublicListe()
+    {
+        $this->setIdUser();
+        $this->setIdListe();
+        $ch = curl_init();
+        $url = URL_test."/listes/public";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
     public function testGetAllListe()
     {
         $this->setIdUser();
@@ -320,6 +335,22 @@ class ApiTest extends TestCase
         $this->setIdEtiquette();
         $ch = curl_init();
         $url = URL_test."/etiquettes/$this->idEtiquette";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($res);
+        $this->assertEquals(true, $res->status);
+    }
+
+    public function testGetEtiquetteIdentifiant()
+    {
+        $this->setIdUser();
+        $this->setIdListe();
+        $this->setIdElement();
+        $ch = curl_init();
+        $url = URL_test."/identifies/$this->idElement/etiquettes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

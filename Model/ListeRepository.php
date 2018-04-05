@@ -50,13 +50,28 @@ class ListeRepository extends Repository
     }
 
     /**
+     * Récupère toutes les listes publiques
+     * @return bool
+     */
+    public function getPublicListe() {
+        try {
+            $this->stmt = $this->pdo->prepare('SELECT * FROM liste WHERE visibility = 1');
+            $this->stmt->execute();
+            return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch(\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Récupère les élements associés à une liste
      * @param $idListe
      * @return array|bool
      */
     public function getElements($idListe) {
         try {
-            $this->stmt = $this->pdo->prepare('SELECT * FROM element WHERE idListe = :id');
+            $this->stmt = $this->pdo->prepare('SELECT * FROM element WHERE idListe = :id ORDER BY idListe DESC');
             $this->stmt->bindParam(':id', $idListe);
             $this->stmt->execute();
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);

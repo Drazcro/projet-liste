@@ -24,6 +24,8 @@ class IdentifiesController extends HttpController
         $idEtiquette = isset($this->getData[2])?$this->getData[2]:null;
         if(preg_match('#^/identifies/(\d)+/(\d)+$#', $this->url))
             $d = $this->repository->getIdentifie($idElements, $idEtiquette);
+        elseif(preg_match('#^/identifies/(\d)+/etiquettes$#', $this->url))
+            $d = $this->repository->getEtiquette($idElements);
         else
             throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
