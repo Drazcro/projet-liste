@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class ElementRepository extends Repository
+class ElementModel extends Model
 {
     /**
      * Récupère un élément par id

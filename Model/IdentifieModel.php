@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class IdentifieRepository extends Repository
+class IdentifieModel extends Model
 {
     /**
      * Récupère une identification
@@ -30,7 +30,6 @@ class IdentifieRepository extends Repository
      */
     public function getEtiquette($id)
     {
-       // var_dump($id);
         try {
             $this->stmt = $this->pdo->prepare('SELECT et.* FROM etiquette et, identifie i WHERE i.etiquette_idetiquette = et.idetiquette AND i.element_idelements = :id');
             $this->stmt->bindParam(':id', $id);
@@ -38,7 +37,6 @@ class IdentifieRepository extends Repository
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(\Exception $e) {
-            var_dump($e->getMessage());
             return false;
         }
     }

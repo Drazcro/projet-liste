@@ -1,5 +1,5 @@
 <?php
-$env = 'prod';
+$env = 'local';
 
 if($env == 'local') {
     define('DB_NAME', 'projet_liste');

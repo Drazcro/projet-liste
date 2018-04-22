@@ -11,12 +11,12 @@ use Exceptions\HttpException;
  */
 class ListesController extends HttpController
 {
-    private $repository;
 
-    public function __construct($getData, $postData, $url, $method)
+
+    public function __construct($getData, $postData, $url, $method, $pseudo, $password)
     {
-        parent::__construct($getData, $postData, $url, $method);
-        $this->repository = new \Model\ListeRepository();
+        parent::__construct($getData, $postData, $url, $method, $pseudo, $password);
+        $this->repository = new \Model\ListeModel();
     }
 
     /**
@@ -65,7 +65,7 @@ class ListesController extends HttpController
         else
             throw new HttpException(400, 'Un des attributs entré pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         if(!$d)
-            throw new HttpException(500, 'L\'ajout a echoue.');
+            throw new HttpException(400, 'L\'ajout a echoue.');
         else
             return "L\'ajout a reussie.";
     }
@@ -83,7 +83,7 @@ class ListesController extends HttpController
         else
             throw new HttpException(400, 'L\'id n\'est pas definie.');
         if(!$d)
-            throw new HttpException(500, 'La suppression a echoue.');
+            throw new HttpException(400, 'La suppression a echoue.');
         else
             return "La suppression a reussie.";
     }
@@ -101,7 +101,7 @@ class ListesController extends HttpController
         else
             throw new HttpException(400, 'Un des attributs entre pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         if(!$d)
-            throw new HttpException(500, 'La mise a jour a echoue.');
+            throw new HttpException(400, 'La mise a jour a echoue.');
         else
             return "La mise a jour reussie.";
     }

@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class UtilisateurRepository extends Repository
+class UtilisateurModel extends Model
 {
     /**
      * Récupère un utilisateur par id ou pseudo

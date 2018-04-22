@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Repository
+class Model
 {
     protected $pdo;
     protected $stmt;

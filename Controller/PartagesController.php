@@ -6,10 +6,10 @@ use Exceptions\HttpException;
 
 class PartagesController extends HttpController
 {
-    public function __construct($getData, $postData, $url, $method)
+    public function __construct($getData, $postData, $url, $method, $pseudo, $password)
     {
-        parent::__construct($getData, $postData, $url, $method);
-        $this->repository = new \Model\PartageRepository();
+        parent::__construct($getData, $postData, $url, $method, $pseudo, $password);
+        $this->repository = new \Model\PartageModel();
     }
 
     /**
@@ -27,7 +27,7 @@ class PartagesController extends HttpController
         else
             throw new HttpException(400,'L\'appel n\'est pas reconnu. Il se peut que le format soit errone.');
         if($d == false)
-            throw new HttpException(404, 'Aucune ligne selectionnee.');
+            throw new HttpException(400, 'Aucune ligne selectionnee.');
         return $d;
     }
 
@@ -44,7 +44,7 @@ class PartagesController extends HttpController
         else
             throw new HttpException(400, 'Un des attributs entre pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         if(!$d)
-            throw new HttpException(500, 'L\'ajout a echoue.');
+            throw new HttpException(400, 'L\'ajout a echoue.');
         else
             return "L\'ajout a reussie.";
     }
@@ -63,7 +63,7 @@ class PartagesController extends HttpController
         else
             throw new HttpException(400, 'L\'id n\'est pas definie.');
         if(!$d)
-            throw new HttpException(500, 'La suppression a echoue.');
+            throw new HttpException(400, 'La suppression a echoue.');
         else
             return "La suppression a reussie.";
     }
@@ -82,7 +82,7 @@ class PartagesController extends HttpController
         else
             throw new HttpException(400, 'Un des attributs entre pour la requete n\'est pas bien defini ou n\'est pas fourni.');
         if(!$d)
-            throw new HttpException(500, 'La mise a jour a echoue.');
+            throw new HttpException(400, 'La mise a jour a echoue.');
         else
             return "La mise a jour reussie.";
     }

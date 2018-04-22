@@ -3,11 +3,11 @@
 namespace Model;
 
 /**
- * Class ListeRepository
+ * Class ListeModel
  * @package Model
  * Gère les requêtes sur les listes.
  */
-class ListeRepository extends Repository
+class ListeModel extends Model
 {
     /**
      * Récupère une liste par id

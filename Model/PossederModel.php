@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class PossederRepository extends Repository
+class PossederModel extends Model
 {
     /**
      * Récupère une possession

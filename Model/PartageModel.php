@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class PartageRepository extends Repository
+class PartageModel extends Model
 {
     /**
      * Récupère un partage

@@ -70,13 +70,15 @@ class ApiTest extends TestCase
         $url = URL_test."/utilisateurs";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testCreateListe()
@@ -87,13 +89,15 @@ class ApiTest extends TestCase
         $url = URL_test."/listes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testCreateElement()
@@ -107,13 +111,15 @@ class ApiTest extends TestCase
         $url = URL_test."/elements";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testCreateEtiquette()
@@ -124,13 +130,15 @@ class ApiTest extends TestCase
         $url = URL_test."/etiquettes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testCreateIdentifie()
@@ -144,13 +152,15 @@ class ApiTest extends TestCase
         $url = URL_test."/identifies";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testCreatePartage()
@@ -162,13 +172,15 @@ class ApiTest extends TestCase
         $url = URL_test."/partages";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testCreatePosseder()
@@ -180,12 +192,15 @@ class ApiTest extends TestCase
         $url = URL_test."/posseders";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        $res = json_decode(curl_exec($ch), true);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $this->assertEquals(true, $res['status']);
+        $this->assertEquals(200, $http_status);
     }
 
     //Tests récupération d'une entité
@@ -196,21 +211,25 @@ class ApiTest extends TestCase
         $url = URL_test."/utilisateurs/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
 
         $ch = curl_init();
         $url = URL_test."/utilisateurs/cedric";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testAllUtilisateur()
@@ -220,11 +239,13 @@ class ApiTest extends TestCase
         $url = URL_test."/utilisateurs";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testConnectionUtilisateur()
@@ -234,11 +255,13 @@ class ApiTest extends TestCase
         $url = URL_test."/utilisateurs/cedric/1234";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetListe()
@@ -249,11 +272,13 @@ class ApiTest extends TestCase
         $url = URL_test."/listes/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testPublicListe()
@@ -264,11 +289,13 @@ class ApiTest extends TestCase
         $url = URL_test."/listes/public";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetAllListe()
@@ -280,21 +307,25 @@ class ApiTest extends TestCase
         $url = URL_test."/listes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
 
         $ch = curl_init();
         $url = URL_test."/listes/all/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetElement()
@@ -306,11 +337,13 @@ class ApiTest extends TestCase
         $url = URL_test."/elements/$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetElementsByListe()
@@ -322,11 +355,13 @@ class ApiTest extends TestCase
         $url = URL_test."/listes/$this->idListe/elements";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetEtiquette()
@@ -337,11 +372,13 @@ class ApiTest extends TestCase
         $url = URL_test."/etiquettes/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetEtiquetteIdentifiant()
@@ -353,11 +390,13 @@ class ApiTest extends TestCase
         $url = URL_test."/identifies/$this->idElement/etiquettes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetIdentifie()
@@ -370,11 +409,13 @@ class ApiTest extends TestCase
         $url = URL_test."/identifies/$this->idElement/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetPartage()
@@ -385,11 +426,13 @@ class ApiTest extends TestCase
         $url = URL_test."/partages/$this->idUser/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testGetPosseder()
@@ -400,11 +443,13 @@ class ApiTest extends TestCase
         $url = URL_test."/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     //Tests mise à jour entités
@@ -415,13 +460,15 @@ class ApiTest extends TestCase
         $post = ['pseudo' => 'cedric', 'password' => '12534', 'permission' => 1, 'role' => 1];
         $url = URL_test."/utilisateurs/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testUpdateListe()
@@ -432,23 +479,15 @@ class ApiTest extends TestCase
         $post = ['idUser' => $this->idUser, 'title' => 'ma liste 2', 'description' => 'une description 2', 'visibility' => 1];
         $url = URL_test."/listes/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-
-        $ch = curl_init();
-        $post = ['idUser' => 79, 'title' => 'ma liste 2', 'description' => 'une description 2', 'visibility' => 1];
-        $url = URL_test."/listes/ABCD72";
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
-        curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(false, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testUpdateElement()
@@ -462,13 +501,15 @@ class ApiTest extends TestCase
         $post = ['date_creation' => date_format($dateCrea, 'Y-m-d H:i:s'), 'date_modif' => date_format($dateModif, 'Y-m-d H:i:s'), 'titre' => "nouveau titre", 'description' => 'une nouvelle description', 'statut' => 1, 'idListe' => $this->idListe];
         $url = URL_test."/elements/$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testUpdateEtiquette()
@@ -479,13 +520,15 @@ class ApiTest extends TestCase
         $post = ['idUser' => $this->idUser, 'tag' => 'new tag', 'idEtiquette' => $this->idEtiquette];
         $url = URL_test."/etiquettes/{id}";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testUpdateIdentifie()
@@ -502,6 +545,8 @@ class ApiTest extends TestCase
         $url = URL_test."/etiquettes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -521,6 +566,8 @@ class ApiTest extends TestCase
         $url = URL_test."/elements";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -538,10 +585,14 @@ class ApiTest extends TestCase
         $url = URL_test."/identifies/$idElement/$idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testUpdatePartage()
@@ -553,12 +604,14 @@ class ApiTest extends TestCase
         $url = URL_test."/partages/$this->idUser/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testUpdatePosseder()
@@ -571,6 +624,8 @@ class ApiTest extends TestCase
         $url = URL_test."/listes";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -587,12 +642,14 @@ class ApiTest extends TestCase
         $url = URL_test."/posseders/$this->idListe/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     //Tests suppression entité
@@ -613,12 +670,14 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/posseders/$this->idListe/$idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testDeletePartage()
@@ -628,12 +687,14 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/partages/$this->idUser/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testDeleteIdentifie()
@@ -655,12 +716,14 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/identifies/$idElement/$idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testDeleteEtiquette()
@@ -670,12 +733,14 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/etiquettes/$this->idEtiquette";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testDeleteElement()
@@ -686,12 +751,14 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/elements/$this->idElement";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testDeleteListe()
@@ -701,12 +768,14 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/listes/$this->idListe";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
     }
 
     public function testDeleteUtilisateur()
@@ -715,11 +784,78 @@ class ApiTest extends TestCase
         $ch = curl_init();
         $url = URL_test."/utilisateurs/$this->idUser";
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        $res = json_decode($res);
-        $this->assertEquals(true, $res->status);
+        $this->assertEquals(200, $http_status);
+    }
+
+    //Test d'erreur dauthentification
+    public function testNoAuthorised()
+    {
+        $this->setIdUser();
+        $ch = curl_init();
+        $url = URL_test."/utilisateurs";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:pasbonmdp');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        $this->assertEquals(403, $http_status);
+    }
+
+    //Test d'erreur de mise à jour
+    public function testUpdateFail()
+    {
+        $this->setIdUser();
+        $ch = curl_init();
+        $url = URL_test."/utilisateurs/78787";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        $this->assertEquals(400, $http_status);
+    }
+
+    //Test d'erreur de récupération
+    public function testGetFail()
+    {
+        $this->setIdUser();
+        $ch = curl_init();
+        $url = URL_test."/utilisateurs/78878";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        $this->assertEquals(400, $http_status);
+    }
+
+    //Test d'erreur de suppression
+    public function testDeleteFail()
+    {
+        $this->setIdUser();
+        $ch = curl_init();
+        $url = URL_test."/listes/455454";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'monapp:mdp');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        $this->assertEquals(400, $http_status);
     }
 }

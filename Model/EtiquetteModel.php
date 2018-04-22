@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class EtiquetteRepository extends Repository
+class EtiquetteModel extends Model
 {
     /**
      * Récupère une étiquette par id

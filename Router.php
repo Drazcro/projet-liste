@@ -14,6 +14,8 @@ class Router
     private $table;
     private $logger;
     private $url;
+    private $pseudo;
+    protected $password;
 
     public function __construct()
     {
@@ -38,7 +40,7 @@ class Router
             $nameToTest = str_replace('\\', '/', $name).'.php';
             if(!file_exists($nameToTest))
                 throw new \Exceptions\HttpException(400, 'La table '.$this->table.' n\'existe pas.');
-            $controller = new $name($this->getData, $this->postData, $this->url, $this->method);
+            $controller = new $name($this->getData, $this->postData, $this->url, $this->method, $this->pseudo, $this->password);
             $controller->action();
         }
         catch (\Exceptions\HttpException $e) {
@@ -62,5 +64,10 @@ class Router
             $this->getData = array_splice($url, 1);
         }
         $this->postData = $_REQUEST;
+        $data = null;
+        if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+            $this->pseudo = $_SERVER['PHP_AUTH_USER'];
+            $this->password = $_SERVER['PHP_AUTH_PW'];
+        }
     }
 }

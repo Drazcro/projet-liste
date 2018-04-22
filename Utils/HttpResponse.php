@@ -25,7 +25,6 @@ class HttpResponse {
             header('Status: '.$status[$code]);
         // return the encoded json
         echo json_encode(array(
-            'status' => $code < 300, // success or not?
             'message' => $message
         ));
     }
