@@ -64,7 +64,6 @@ class Router
             $this->getData = array_splice($url, 1);
         }
         $this->postData = $_REQUEST;
-        $data = null;
         if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
             $this->pseudo = $_SERVER['PHP_AUTH_USER'];
             $this->password = $_SERVER['PHP_AUTH_PW'];
